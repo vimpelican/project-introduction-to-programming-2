@@ -1,5 +1,11 @@
-#include <iostream>
+#ifndef CALCULATOR
+#define CALCULATOR
 
+
+#include <iostream>
+#include <Windows.h>
+
+// 추상적인 계산기 클래스
 class Calc {
 private:
 protected:
@@ -8,7 +14,7 @@ public:
 	추상적인 계산기 클래스
 	*/
 };
-
+// 가장 기본적인 계산기
 class Calc_basic : public Calc {
 private:
 protected:
@@ -21,7 +27,7 @@ public:
 	4. 현재 출력되고 있는 화면 지우기
 	*/
 };
-
+// 기본 공학용 계산기
 class Calc_Eng : public Calc_basic {
 private:
 protected:
@@ -33,7 +39,7 @@ public:
 	3. 자주 쓰이는 상수(e, pi 등) 바로 계산 식에 포함 가능
 	*/
 };
-
+// 고급 공학용 계산기
 class Calc_Eng_Advanced : public Calc_Eng {
 private:
 protected:
@@ -42,3 +48,7 @@ public:
 	고급 공학용 기능(기본 공학용 기능 + 공학용 계산기로만 가능한 기능들)
 	*/
 };
+
+void SetCalc(void);
+
+#endif
