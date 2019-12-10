@@ -1,9 +1,17 @@
 #ifndef CALCULATOR
 #define CALCULATOR
-
+#define KEY_UP 72
+#define KEY_DOWN 80
+#define KEY_LEFT 75
+#define KEY_RIGHT 77	//define ASCII code for arrow key
+#define SUBMIT 13		//define ASCII code for enter key(\n)
+#define ESC 27
 
 #include <iostream>
 #include <Windows.h>
+#include <conio.h>	//for using _getch()
+#include <cstdlib>
+#include <ctime>
 
 // 추상적인 계산기 클래스
 class Calc {
@@ -49,16 +57,8 @@ public:
 	*/
 };
 
-
-void MoveCursor(int x, int y)
-{
-	HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
-	COORD pos;
-	pos.X = x;
-	pos.Y = y;
-	SetConsoleCursorPosition(consoleHandle, pos);
-}
-
-void SetCalc(void);
-
+void Initialize(void);
+void MoveCursor(int x, int y);
+void ShowTitle(float);
+int ShowMode(void);
 #endif

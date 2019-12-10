@@ -2,8 +2,9 @@
 
 int main(void)
 {
-	
-	SetCalc();
+	Initialize();
+	ShowTitle(1);
+	ShowMode();
 	getchar();
 	return 0;
 }
