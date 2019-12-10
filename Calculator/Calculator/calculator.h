@@ -49,6 +49,16 @@ public:
 	*/
 };
 
+
+void MoveCursor(int x, int y)
+{
+	HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+	COORD pos;
+	pos.X = x;
+	pos.Y = y;
+	SetConsoleCursorPosition(consoleHandle, pos);
+}
+
 void SetCalc(void);
 
 #endif
