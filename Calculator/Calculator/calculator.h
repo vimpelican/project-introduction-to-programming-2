@@ -1,5 +1,6 @@
 #ifndef CALCULATOR
 #define CALCULATOR
+#define _USE_MATH_DEFINES		//to use M_PI(exact pi value)
 #define CONSOLECOLS 60			//콘솔 창의 가로 길이
 #define COMSOLEROWS 20			//콘솔 창의 세로 길이
 
@@ -23,14 +24,27 @@
 #include <ctime>
 #include <cmath>
 #include <string>
-#include <stack>
 #include <vector>
 #include <sstream>
+
+/*
+using std::cout;
+using std::cin;
+using std::endl;
+using std::string;
+using std::vector;
+using std::stack;
+using std::stringstream;
+using std::ios_base::eof();
+*/
+
+using namespace std;
 
 class Calc {
 private:
 protected:
 public:
+	void ClearConsole(void);
 	/*
 	추상적인 계산기 클래스
 	*/
@@ -39,11 +53,14 @@ public:
 class Calc_basic : public Calc {
 private:
 protected:
-	string InfixExp;
-	string PostfixExp;
-	const string symbol = "(+-*/)";
+	string InfixExpression = "";
+	string PostfixExpression = "";
+	const string operators = "(+-*/)";	//available opeartors -- parenthes, plus, minus, multiple, divide
+	double result;
 public:
-	string ConvertintoPostFix(const string InfixExp);
+	Calc_basic() : result(0.0) {};
+	string InputInfixExp(void);
+	string ConvertToPostfix(const string InfixExp);
 	double Calculate(const string PostFixExp);
 };
 
@@ -51,6 +68,7 @@ class Calc_Eng : public Calc_basic {
 private:
 protected:
 	const float PI = M_PI;
+	const float E = M_E;
 public:
 	/*
 	기본 공학용 기능(폰 계산기 기능 + 추가적인 기능들)
@@ -71,8 +89,10 @@ public:
 
 void Initialize(void);
 void MoveCursor(int x, int y);
-void PrintTitle(float);
+int ReadKey(void);
+void PrintTitle(float Seconds);
 void PrintMode(void);
 int SelectMode(void);
-void PrintLine(int, int, int);
+void PrintLine(int xPos, int yPos, int amount);
+
 #endif
