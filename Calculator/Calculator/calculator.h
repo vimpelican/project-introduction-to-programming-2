@@ -53,15 +53,37 @@ public:
 class Calc_basic : public Calc {
 private:
 protected:
-	string InfixExpression = "";
-	string PostfixExpression = "";
+	string InfixExpression;
+	string PostfixExpression;
 	const string operators = "(+-*/)";	//available opeartors -- parenthes, plus, minus, multiple, divide
-	double result;
+	double result = 0.0;
 public:
-	Calc_basic() : result(0.0) {};
+	//Calc_basic() : result(0.0) {};
+	void SetInfix(string* str){
+		InfixExpression = *str;
+	}
+	string GetInfix(void) {
+		return InfixExpression;
+	}
+
+	void SetPostfix(string str) {
+		PostfixExpression = str;
+	}
+	string GetPostfix(void) {
+		return PostfixExpression;
+	}
+
+	void setResult(double db) {
+		result = db;
+	}
+
+	double getResult(void) {
+		return result;
+	}
+
 	string InputInfixExp(void);
-	string ConvertToPostfix(const string InfixExp);
-	double Calculate(const string PostFixExp);
+	string ConvertToPostfix(const string* InfixExp);
+	double Calculate(const string* PostFixExp);
 };
 
 class Calc_Eng : public Calc_basic {

@@ -141,8 +141,10 @@ void Calc::ClearConsole(void)
 	system("cls");
 }
 
+/*
 string Calc_basic::InputInfixExp(void)
 {
+	string InfixExpression;
 	cout << "\n\n";
 	cout << "중위표기법(Infix Notation)으로 작성된 식을 입력하세요. 연산자 생략은 불가능합니다.\n";
 	cin >> InfixExpression;	//null pointer error, why?
@@ -151,17 +153,20 @@ string Calc_basic::InputInfixExp(void)
 	PostfixExpression = ConvertToPostfix(InfixExpression);
 	return PostfixExpression;
 }
+*/
 
-string Calc_basic::ConvertToPostfix(string InfixExp)	//if parameter is const string --> Error C2440
+string Calc_basic::ConvertToPostfix(const string* InfixExp)	//if parameter is const string --> Error C2440
 {
+	string PostfixExpression;
+	string input = *InfixExp;
 
-	string::iterator itr_ind = InfixExp.begin();	//iterator only used in index
-	string::iterator itr_str = InfixExp.begin();	//iterator only used in accessing
+	string::iterator itr_ind = input.begin();	//iterator only used in index
+	string::iterator itr_str = input.begin();	//iterator only used in accessing
 	//string::iterator end; -- isn't it useless?
 
 	vector<char> stack;	//using vector as a stack!
 
-	for (; itr_ind != InfixExp.end(); ++itr_ind)
+	for (; itr_ind != input.end(); ++itr_ind)
 	{
 		//if stream value is not an operator -- pass
 		if (Calc_basic::operators.find(*itr_ind) == string::npos)
@@ -172,7 +177,7 @@ string Calc_basic::ConvertToPostfix(string InfixExp)	//if parameter is const str
 
 		//operator processing
 		PostfixExpression += " ";
-		switch (*itr_str)
+		switch (*itr_ind)
 		{
 		case'(':
 			stack.push_back('(');
@@ -184,7 +189,7 @@ string Calc_basic::ConvertToPostfix(string InfixExp)	//if parameter is const str
 				PostfixExpression += " ";
 				stack.pop_back();
 			}
-			stack.push_back(*itr_str);
+			stack.pop_back();
 			break;
 		case'+':
 		case'-':	//starting add/subtract calculation
@@ -194,17 +199,17 @@ string Calc_basic::ConvertToPostfix(string InfixExp)	//if parameter is const str
 				PostfixExpression += " ";
 				stack.pop_back();
 			}
-			stack.push_back(*itr_str);
+			stack.push_back(*itr_ind);
 			break;
 		case'*':
 		case'/':	//starting multiply/divide calculation
-			while (stack.size() != 0 && stack.back() != '(' || stack.back() == '/')
+			while (stack.size() != 0 && (stack.back() != '(' || stack.back() == '/'))
 			{
 				PostfixExpression += stack.back();
 				PostfixExpression += " ";
 				stack.pop_back();
 			}
-			stack.push_back(*itr_str);
+			stack.push_back(*itr_ind);
 			break;
 		case' ':
 			break;
@@ -226,11 +231,13 @@ string Calc_basic::ConvertToPostfix(string InfixExp)	//if parameter is const str
 	return PostfixExpression;
 }
 
-double Calc_basic::Calculate(const string PostFixExp)
+double Calc_basic::Calculate(const string* PostFixExp)
 {
+	string output = *PostFixExp;
+
 	vector<double> stack;
 	string str = "";
-	stringstream temp(PostFixExp);
+	stringstream temp(output);
 
 	while (!temp.eof())
 	{

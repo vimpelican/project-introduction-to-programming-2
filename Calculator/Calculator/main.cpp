@@ -4,13 +4,14 @@
 int main(void)
 {
 	Calc* ptc;
-	Calc_basic* ptc_b = 0;
-	Calc_Eng* ptc_e;
-	string str;
+	Calc_basic* ptc_b = new Calc_basic;
+	string temps;
+	string* ptrs = new string;
 
 	Initialize();
 	PrintTitle(1.2);
 	PrintMode();
+
 	while (1)
 	{
 		int i = SelectMode();
@@ -18,11 +19,22 @@ int main(void)
 		{
 		case BASICCALC:
 		{
-			system("cls");
 			ptc_b->ClearConsole();
-			str = ptc_b->InputInfixExp();
-			ptc_b->ConvertToPostfix(str);
-			ptc_b->Calculate(str);
+			cout << "중위표기법(Infix Notation)으로 작성된 식을 입력하세요. 연산자 생략은 불가능합니다.\n";
+			cin >> temps;	//null pointer error, why?
+			cout << "cin done" << endl;
+
+			*ptrs = temps;
+
+			ptc_b->SetInfix(ptrs);
+
+			ptc_b->SetPostfix(ptc_b->ConvertToPostfix(&ptc_b->GetInfix()));	//null pointer error, why?
+
+			ptc_b->setResult(ptc_b->Calculate(&ptc_b->GetPostfix()));
+
+			cout << ptc_b->getResult() << endl;
+
+			Sleep(10000);
 		}
 			break;
 		case ADVANCEDCALC:
