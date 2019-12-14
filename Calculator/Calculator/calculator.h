@@ -46,7 +46,7 @@ protected:
 public:
 	void ClearConsole(void);
 	/*
-	추상적인 계산기 클래스
+	화면을 모두 관리하는 계산기 클래스
 	*/
 };
 
@@ -56,31 +56,18 @@ protected:
 	string InfixExpression;
 	string PostfixExpression;
 	const string operators = "(+-*/)";	//available opeartors -- parenthes, plus, minus, multiple, divide
-	double result = 0.0;
+	double result;
 public:
-	//Calc_basic() : result(0.0) {};
-	void SetInfix(string* str){
-		InfixExpression = *str;
-	}
-	string GetInfix(void) {
-		return InfixExpression;
-	}
+	Calc_basic() : result(0.0) {};
+	void SetInfix(string* str) { InfixExpression = *str; }
+	void SetPostfix(string str) { PostfixExpression = str; }
 
-	void SetPostfix(string str) {
-		PostfixExpression = str;
-	}
-	string GetPostfix(void) {
-		return PostfixExpression;
-	}
-
-	void setResult(double db) {
-		result = db;
-	}
-
-	double getResult(void) {
-		return result;
-	}
-
+	string GetInfix(void) { return InfixExpression; }
+	string GetPostfix(void) { return PostfixExpression; }
+	
+	void SetResult(double db) { result = db; }
+	double GetResult(void) { return result; }
+	
 	string InputInfixExp(void);
 	string ConvertToPostfix(const string* InfixExp);
 	double Calculate(const string* PostFixExp);

@@ -157,9 +157,7 @@ string Calc_basic::InputInfixExp(void)
 
 string Calc_basic::ConvertToPostfix(const string* InfixExp)	//if parameter is const string --> Error C2440
 {
-	string PostfixExpression;
 	string input = *InfixExp;
-
 	string::iterator itr_ind = input.begin();	//iterator only used in index
 	string::iterator itr_str = input.begin();	//iterator only used in accessing
 	//string::iterator end; -- isn't it useless?
@@ -169,7 +167,7 @@ string Calc_basic::ConvertToPostfix(const string* InfixExp)	//if parameter is co
 	for (; itr_ind != input.end(); ++itr_ind)
 	{
 		//if stream value is not an operator -- pass
-		if (Calc_basic::operators.find(*itr_ind) == string::npos)
+		if (operators.find(*itr_ind) == string::npos)
 		{
 			PostfixExpression += *itr_ind;
 			continue;

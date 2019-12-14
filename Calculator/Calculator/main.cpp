@@ -22,7 +22,6 @@ int main(void)
 			ptc_b->ClearConsole();
 			cout << "중위표기법(Infix Notation)으로 작성된 식을 입력하세요. 연산자 생략은 불가능합니다.\n";
 			cin >> temps;	//null pointer error, why?
-			cout << "cin done" << endl;
 
 			*ptrs = temps;
 
@@ -30,9 +29,9 @@ int main(void)
 
 			ptc_b->SetPostfix(ptc_b->ConvertToPostfix(&ptc_b->GetInfix()));	//null pointer error, why?
 
-			ptc_b->setResult(ptc_b->Calculate(&ptc_b->GetPostfix()));
+			ptc_b->SetResult(ptc_b->Calculate(&ptc_b->GetPostfix()));
 
-			cout << ptc_b->getResult() << endl;
+			cout << ptc_b->GetResult << endl;
 
 			Sleep(10000);
 		}
