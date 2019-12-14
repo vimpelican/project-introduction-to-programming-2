@@ -1,6 +1,7 @@
 #ifndef CALCULATOR
 #define CALCULATOR
-#define COLS 60			//columns size of console
+#define CONSOLECOLS 60			//Console's column size
+#define COMSOLEROWS 20			//Console's line size(==row size)
 #define KEY_UP 72
 #define KEY_DOWN 80
 #define KEY_LEFT 75
@@ -36,16 +37,14 @@ protected:
 public:
 	/*
 	기본 기능(폰 계산기 켜면 바로 가능)
-	1. 실수 사칙연산
-	2. 퍼센트 연산
-	3. 괄호 포함한 연산
-	4. 현재 출력되고 있는 화면 지우기
+	1. 괄호 포함한 사칙연산
 	*/
 };
 
 class Calc_Eng : public Calc_basic {
 private:
 protected:
+	int a = 1;
 public:
 	/*
 	기본 공학용 기능(폰 계산기 기능 + 추가적인 기능들)
@@ -63,7 +62,6 @@ public:
 	고급 공학용 기능(기본 공학용 기능 + 공학용 계산기로만 가능한 기능들)
 	*/
 };
-
 
 void Initialize(void);
 void MoveCursor(int x, int y);
