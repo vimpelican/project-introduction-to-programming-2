@@ -59,18 +59,16 @@ protected:
 	double result;
 public:
 	Calc_basic() : result(0.0) {};
-	void SetInfix(string* str) { InfixExpression = *str; }
 	void SetPostfix(string str) { PostfixExpression = str; }
-
-	string GetInfix(void) { return InfixExpression; }
+	string* GetInfix(void) { return &InfixExpression; }
 	string GetPostfix(void) { return PostfixExpression; }
 	
 	void SetResult(double db) { result = db; }
 	double GetResult(void) { return result; }
 	
-	string InputInfixExp(void);
-	string ConvertToPostfix(const string* InfixExp);
-	double Calculate(const string* PostFixExp);
+	void GetSetInfixExp(void);
+	void ConvertToPostfix(void);
+	void Calculate(void);
 };
 
 class Calc_Eng : public Calc_basic {
@@ -90,6 +88,7 @@ public:
 class Calc_Eng_Advanced : public Calc_Eng {
 private:
 protected:
+	char ch;
 public:
 	/*
 	고급 공학용 기능(기본 공학용 기능 + 공학용 계산기로만 가능한 기능들)

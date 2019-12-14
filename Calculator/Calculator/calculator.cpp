@@ -141,40 +141,43 @@ void Calc::ClearConsole(void)
 	system("cls");
 }
 
-/*
-string Calc_basic::InputInfixExp(void)
+
+void Calc_basic::GetSetInfixExp(void)
 {
-	string InfixExpression;
+	string temp;
 	cout << "\n\n";
 	cout << "중위표기법(Infix Notation)으로 작성된 식을 입력하세요. 연산자 생략은 불가능합니다.\n";
-	cin >> InfixExpression;	//null pointer error, why?
-	cout << "TEST";
+	cin >> temp;	//null pointer error, why?
 
-	PostfixExpression = ConvertToPostfix(InfixExpression);
-	return PostfixExpression;
+	string* ptrs = new string;
+	*ptrs = temp;
+	InfixExpression = *ptrs;
+	delete ptrs;
 }
-*/
 
-string Calc_basic::ConvertToPostfix(const string* InfixExp)	//if parameter is const string --> Error C2440
+void Calc_basic::ConvertToPostfix(void)	//if parameter is const string --> Error C2440
 {
-	string input = *InfixExp;
-	string::iterator itr_ind = input.begin();	//iterator only used in index
-	string::iterator itr_str = input.begin();	//iterator only used in accessing
-	//string::iterator end; -- isn't it useless?
+	string* ptrs = new string;
+	*ptrs = InfixExpression;
+	string InfixExp = *ptrs;
+
+	string Post_temp;
+
+	string::iterator itr_ind = InfixExp.begin();	//iterator used in index
 
 	vector<char> stack;	//using vector as a stack!
 
-	for (; itr_ind != input.end(); ++itr_ind)
+	for (; itr_ind != InfixExp.end(); ++itr_ind)
 	{
 		//if stream value is not an operator -- pass
 		if (operators.find(*itr_ind) == string::npos)
 		{
-			PostfixExpression += *itr_ind;
+			Post_temp += *itr_ind;
 			continue;
 		}
 
 		//operator processing
-		PostfixExpression += " ";
+		Post_temp += " ";
 		switch (*itr_ind)
 		{
 		case'(':
@@ -183,8 +186,8 @@ string Calc_basic::ConvertToPostfix(const string* InfixExp)	//if parameter is co
 		case')':	//starting parenthetical calculation
 			while (stack.back() != '(')
 			{
-				PostfixExpression += stack.back();
-				PostfixExpression += " ";
+				Post_temp += stack.back();
+				Post_temp += " ";
 				stack.pop_back();
 			}
 			stack.pop_back();
@@ -193,18 +196,18 @@ string Calc_basic::ConvertToPostfix(const string* InfixExp)	//if parameter is co
 		case'-':	//starting add/subtract calculation
 			while (stack.size() != 0 && stack.back() != '(')
 			{
-				PostfixExpression += stack.back();
-				PostfixExpression += " ";
+				Post_temp += stack.back();
+				Post_temp += " ";
 				stack.pop_back();
 			}
 			stack.push_back(*itr_ind);
 			break;
 		case'*':
 		case'/':	//starting multiply/divide calculation
-			while (stack.size() != 0 && (stack.back() != '(' || stack.back() == '/'))
+			while (stack.size() != 0 && (stack.back() == '*' || stack.back() == '/'))
 			{
-				PostfixExpression += stack.back();
-				PostfixExpression += " ";
+				Post_temp += stack.back();
+				Post_temp += " ";
 				stack.pop_back();
 			}
 			stack.push_back(*itr_ind);
@@ -215,27 +218,32 @@ string Calc_basic::ConvertToPostfix(const string* InfixExp)	//if parameter is co
 			//unknown error
 			cout << "예상치 못한 에러가 발생했습니다. 프로그램을 종료합니다." << endl;
 		}
-		PostfixExpression += " ";
+		Post_temp += " ";
 	}
 
 	size_t stacksize = stack.size();
 	for (size_t i = 0; i < stacksize; ++i)
 	{
-		PostfixExpression += " ";
-		PostfixExpression += stack.back();
+		Post_temp += " ";
+		Post_temp += stack.back();
 		stack.pop_back();
 	}
 
-	return PostfixExpression;
+	*ptrs = Post_temp;
+	PostfixExpression = *ptrs;
+	delete ptrs;
 }
 
-double Calc_basic::Calculate(const string* PostFixExp)
+void Calc_basic::Calculate(void)
 {
-	string output = *PostFixExp;
+	string* ptrs = new string;
+	*ptrs = PostfixExpression;
+	string PostfixExp;
+	PostfixExp = *ptrs;
 
 	vector<double> stack;
 	string str = "";
-	stringstream temp(output);
+	stringstream temp(PostfixExp);
 
 	while (!temp.eof())
 	{
@@ -272,5 +280,8 @@ double Calc_basic::Calculate(const string* PostFixExp)
 			}
 		}
 	}
-	return stack.back();
+	double* ptd = new double;
+	*ptd = stack.back();
+	result = *ptd;
+	delete ptd;
 }
