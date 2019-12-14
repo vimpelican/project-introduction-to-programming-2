@@ -88,7 +88,7 @@ void ShowMode(void)
 	cout << "5. 프로그램 종료";
 }
 
-/*int SelectMode(void)
+int SelectMode(void)
 {
 	int x = 7, y = 6;
 	while (1)
@@ -122,7 +122,7 @@ void ShowMode(void)
 			if (y == 6)
 				return CALCULATE;
 			else if (y == 8)
-				return COMPLEX;
+				return TRIGONOMETRIC;
 			else if (y == 10)
 				return BASE_N;
 			else if (y == 12)
@@ -134,4 +134,3 @@ void ShowMode(void)
 		}
 	}
 }
-*/
