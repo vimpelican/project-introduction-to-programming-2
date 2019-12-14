@@ -3,15 +3,15 @@
 int main(void)
 {
 	Initialize();
-	ShowTitle(1);
-	ShowMode();
+	PrintTitle(1.2);
+	PrintMode();
 	while (1)
 	{
 		switch (SelectMode())
 		{
-		case CALCULATE:
+		case BASICCALC:
 			break;
-		case TRIGONOMETRIC:
+		case ADVANCEDCALC:
 			break;
 		case BASE_N:
 			break;
@@ -24,6 +24,7 @@ int main(void)
 		}
 		system("cls");
 	}
+
 	getchar();
 	return 0;
 }

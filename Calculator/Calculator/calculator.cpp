@@ -23,6 +23,13 @@ void MoveCursor(int x, int y)
 	SetConsoleCursorPosition(consoleHandle, pos);
 }
 
+void PrintLine(int xpos, int ypos, int amount)
+{
+	MoveCursor(xpos, ypos);
+	for (int i = 0; i < amount; i++)
+		cout << "=";
+}
+
 int ReadKey(void)
 {
 	int temp = _getch();
@@ -46,7 +53,7 @@ int ReadKey(void)
 	}
 }
 
-void ShowTitle(float Seconds)
+void PrintTitle(float Seconds)
 {
 	MoveCursor(0, 2);
 	cout << endl;
@@ -61,14 +68,10 @@ void ShowTitle(float Seconds)
 	system("cls");
 }
 
-void ShowMode(void)
+void PrintMode(void)
 {
-	MoveCursor(0, 1);
-	for (int i = 0; i < COLS; i++)
-		cout << "-";
-	MoveCursor(0, 18);
-	for (int i = 0; i < COLS; i++)
-		cout << "-";
+	PrintLine(0, 1, CONSOLECOLS);
+	PrintLine(0, 18, CONSOLECOLS);
 
 	MoveCursor(24, 3);
 	cout << "<조작 안내>";
@@ -77,15 +80,15 @@ void ShowMode(void)
 
 	int x = 7, y = 6;
 	MoveCursor(x - 2, y);
-	cout << "1. Calculate(기본적인 계산)";
+	cout << "1. Basic Calculation (기본 계산)";
 	MoveCursor(x - 2, y + 2);
-	cout << "2. Complex(복소수 계산)";
+	cout << "2. Advanced Calculation (고급 계산:삼각/지수/로그함수 포함)";
 	MoveCursor(x - 2, y + 4);
-	cout << "3. Base-N(진수 변환)";
+	cout << "3. Matrix (행렬 계산)";
 	MoveCursor(x - 2, y + 6);
-	cout << "4. Matrix(행렬 연산)";
+	cout << "4. Base-N (진수 변환)";
 	MoveCursor(x - 2, y + 8);
-	cout << "5. 프로그램 종료";
+	cout << "5. Quit (프로그램 종료)";
 }
 
 int SelectMode(void)
@@ -120,13 +123,13 @@ int SelectMode(void)
 		case SUBMIT:
 		{
 			if (y == 6)
-				return CALCULATE;
+				return BASICCALC;
 			else if (y == 8)
-				return TRIGONOMETRIC;
+				return ADVANCEDCALC;
 			else if (y == 10)
-				return BASE_N;
-			else if (y == 12)
 				return MATRIX;
+			else if (y == 12)
+				return BASE_N;
 			else if (y == 14)
 				return QUIT;
 		}
