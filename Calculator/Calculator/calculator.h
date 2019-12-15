@@ -8,7 +8,7 @@
 #define KEY_DOWN 80
 #define KEY_LEFT 75
 #define KEY_RIGHT 77	//define ASCII code for arrow key
-#define SUBMIT 13		//define ASCII code for enter key(\n) -- use enter key to submit something
+#define SUBMIT 13		//define ASCII code for enter key(\r) -- use enter key to submit something
 #define ESC 27			//define ASCII code for ESC key -- use ESC key to cancle something
 
 #define BASICCALC 1
@@ -59,13 +59,10 @@ protected:
 	double result;
 public:
 	Calc_basic() : result(0.0) {};
-	void SetPostfix(string str) { PostfixExpression = str; }
-	string* GetInfix(void) { return &InfixExpression; }
-	string GetPostfix(void) { return PostfixExpression; }
-	
 	void SetResult(double db) { result = db; }
 	double GetResult(void) { return result; }
-	
+
+	void PrintGuide(int xpos, int ypos);
 	void GetSetInfixExp(void);
 	void ConvertToPostfix(void);
 	void Calculate(void);

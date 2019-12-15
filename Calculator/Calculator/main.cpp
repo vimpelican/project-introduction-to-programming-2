@@ -18,13 +18,15 @@ int main(void)
 		case BASICCALC:
 		{
 			ptc_b->ClearConsole();
-			ptc_b->GetSetInfixExp();
-			ptc_b->ConvertToPostfix();	//null pointer error, why?
-			ptc_b->Calculate();
-			cout << ptc_b->GetPostfix() << endl;
-			cout << ptc_b->GetResult() << endl;
-
-			Sleep(1000000);
+			ptc_b->PrintGuide();
+			while (ReadKey() != ESC)
+			{
+				ptc_b->GetSetInfixExp();
+				ptc_b->ConvertToPostfix();	//null pointer error, why?
+				ptc_b->Calculate();
+				cout << ptc_b->GetResult() << endl;
+				Sleep(1000);
+			}
 		}
 			break;
 		case ADVANCEDCALC:

@@ -42,7 +42,7 @@ int ReadKey(void)
 		return KEY_LEFT;
 	case 77:
 		return KEY_RIGHT;
-	case 10:
+	case 13:
 		return SUBMIT;
 	case 27:
 		return ESC;
@@ -118,7 +118,7 @@ int SelectMode(void)
 			}
 		}
 		break;
-		case ESC:
+		case SUBMIT:
 		{
 			if (y == 6)
 				return BASICCALC;
@@ -141,15 +141,19 @@ void Calc::ClearConsole(void)
 	system("cls");
 }
 
-
+void Calc_basic::PrintGuide(int xpos, int ypos)
+{
+	MoveCursor(xpos, ypos);
+	PrintLine(3, 3, CONSOLECOLS);
+	cout << "\n\n";
+	cout << "중위표기법(Infix Notation)으로 작성된 식을 입력하세요. 연산자 생략은 불가능합니다.\n";
+}
 void Calc_basic::GetSetInfixExp(void)
 {
 	string temp;
-	cout << "\n\n";
-	cout << "중위표기법(Infix Notation)으로 작성된 식을 입력하세요. 연산자 생략은 불가능합니다.\n";
+	string* ptrs = new string;
 	cin >> temp;	//null pointer error, why?
 
-	string* ptrs = new string;
 	*ptrs = temp;
 	InfixExpression = *ptrs;
 	delete ptrs;
