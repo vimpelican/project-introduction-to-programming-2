@@ -8,8 +8,8 @@
 #define KEY_DOWN 80
 #define KEY_LEFT 75
 #define KEY_RIGHT 77	//define ASCII code for arrow key
-#define SUBMIT 13		//define ASCII code for enter key(\r) -- use enter key to submit something
-#define ESC 27			//define ASCII code for ESC key -- use ESC key to cancle something
+#define SUBMIT 13		//define ASCII code for enter key(\r) -- use enter key to submit
+#define ESC 27			//define ASCII code for ESC key -- use ESC key to cancle
 
 #define BASICCALC 1
 #define ADVANCEDCALC 2
@@ -45,14 +45,31 @@ class Calc {
 private:
 protected:
 public:
-	void ClearConsole(void);
-
-	/*
-	화면을 관리하지만 계산은 하지 않는 계산기 클래스
-	*/
+	Calc();
+	//추상적인 계산기 클래스
 };
 
-class Calc_basic : public Calc {
+class Calc_Util : public Calc {
+private:
+protected:
+public:
+	Calc_Util();
+	void ClearConsole(void);
+	void PrintTitle(double seconds);
+	void PrintGuide(int xpos, int ypos);
+	void PrintAt(int xpos, int ypos, string contents);
+	void PrintAt(int xpos, int ypos, double db);
+	void PrintLine(int xpos, int ypos, int amount);
+	void PrintMode(void);
+	int ReadKey(void);
+	int SelectMode(void);
+	void Delay(double seconds);
+	void ExitCalc(int xpos, int ypos, double seconds);
+	void ExitCalc(int xpos, int ypos, double seconds, string Error);
+	//화면 입출력을 관리하지만 직접적인 계산은 하지 않는 클래스
+};
+
+class Calc_Basic : public Calc_Util {
 private:
 protected:
 	string InfixExpression;
@@ -61,17 +78,17 @@ protected:
 	const string operators = "(+-*/)";	//available opeartors -- parenthes, plus, minus, multiple, divide
 	double result;
 public:
-	Calc_basic() : result(0.0) {};
+	Calc_Basic() : result(0.0) {};
 	void PrintGuide(int xpos, int ypos);
-	void SetResult(double db) { result = db; }
 	double GetResult(void) const { return result; };
 	void SetInfixExp(int xpos, int ypos);
 	void ConvertToPostfix(void);
 	void Calculate(void);
 	void PrintResult(int xpos, int ypos);
+	//기본적인 계산을 수행하는 클래스
 };
 
-class Calc_Eng : public Calc_basic {
+class Calc_Advanced : public Calc_Basic {
 private:
 protected:
 	const float PI = M_PI;
@@ -85,25 +102,21 @@ public:
 	*/
 };
 
-class Calc_Eng_Advanced : public Calc_Eng {
+class Calc_Matrix : public Calc_Advanced {
 private:
 protected:
-	char ch;
+	int rows;	//행의 수
+	int cols;	//열의 수
 public:
-	/*
-	고급 공학용 기능(기본 공학용 기능 + 공학용 계산기로만 가능한 기능들)
-	*/
+	Calc_Matrix();
+	void DefineMatrix(void);
+	void EditMatrix(void);
+	void GetMatrix(void);
+	void Calculate(void);
+	//행렬 연산을 수행하는 클래스
 };
 
 void Initialize(void);
 void MoveCursor(int x, int y);
-void PrintLine(int xPos, int yPos, int amount);
-int ReadKey(void);
-void PrintTitle(double Seconds);
-void PrintMode(void);
-int SelectMode(void);
-void PrintAt(int xpos, int ypos, string contents);
-void PrintAt(int xpos, int ypos, double db);
-void ExitCalc(int xpos, int ypos, double Seconds);
-void ExitCalc(int xpos, int ypos, double Seconds, string Error);
+
 #endif

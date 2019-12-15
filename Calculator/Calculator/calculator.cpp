@@ -21,14 +21,78 @@ void MoveCursor(int x, int y)
 	SetConsoleCursorPosition(consoleHandle, pos);
 }
 
-void PrintLine(int xpos, int ypos, int amount)
+Calc::Calc()
+{
+
+}
+
+Calc_Util::Calc_Util()
+{
+
+}
+
+void Calc_Util::ClearConsole(void)
+{
+	system("cls");
+}
+
+void Calc_Util::PrintTitle(double seconds)
+{
+	MoveCursor(0, 3);
+	cout <<
+		"  ________   __   _______  ____   ___ __________  ___ \n"
+		" / ___/ _ | / /  / ___/ / / / /  / _ /_  __/ __ \\/ _ \\\n"
+		"/ /__/ __ |/ /__/ /__/ /_/ / /__/ __ |/ / / /_/ / , _/\n"
+		"\\___/_/ |_/____/\\___\/\____/____/_/ |_/_/  \\____/_/|_| \n" << endl;
+	cout << "Introduction to Programming(2) Team Project\n19101279 조계진\n19101191 김경준" << endl;
+	Delay(seconds);
+	system("cls");
+}
+
+void Calc_Util::PrintGuide(int xpos, int ypos)
+{
+	PrintLine(0, 1, CONSOLECOLS);
+	PrintLine(0, 18, CONSOLECOLS);
+	MoveCursor(xpos, ypos);
+	cout <<
+		"<식 입력 안내>\n"
+		"   중위표기법(Infix Notation)으로 작성된 식을 입력하세요.\n"
+		"   연산자 생략은 불가능합니다.\n";
+}
+
+void Calc_Util::PrintAt(int xpos, int ypos, string contents)
+{
+	MoveCursor(xpos, ypos);
+	cout << contents;
+}
+
+void Calc_Util::PrintAt(int xpos, int ypos, double db)
+{
+	MoveCursor(xpos, ypos);
+	cout << db;
+}
+
+void Calc_Util::PrintLine(int xpos, int ypos, int amount)
 {
 	MoveCursor(xpos, ypos);
 	for (int i = 0; i < amount; i++)
 		cout << "=";
 }
 
-int ReadKey(void)
+void Calc_Util::PrintMode(void)
+{
+	PrintLine(0, 1, CONSOLECOLS);
+	PrintLine(0, 18, CONSOLECOLS);
+
+	PrintAt(2, 4, "방향키로 위/아래를 이동하고 엔터 키를 이용해 선택합니다.");
+	PrintAt(5, 6, "1. Basic Calculation (기본 계산)");
+	PrintAt(5, 8, "2. Advanced Calculation (고급 계산:삼각/지수/로그함수 포함)");
+	PrintAt(5, 10, "3. Matrix (행렬 계산)");
+	PrintAt(5, 12, "4. Base-N (진수 변환)");
+	PrintAt(5, 14, "5. Quit (프로그램 종료)");
+}
+
+int Calc_Util::ReadKey(void)
 {
 	int temp = _getch();
 
@@ -51,36 +115,7 @@ int ReadKey(void)
 	}
 }
 
-void PrintTitle(double Seconds)
-{
-	MoveCursor(0, 2);
-	cout << endl;
-	cout <<
-		"  ________   __   _______  ____   ___ __________  ___ \n"
-		" / ___/ _ | / /  / ___/ / / / /  / _ /_  __/ __ \\/ _ \\\n"
-		"/ /__/ __ |/ /__/ /__/ /_/ / /__/ __ |/ / / /_/ / , _/\n"
-		"\\___/_/ |_/____/\\___\/\____/____/_/ |_/_/  \\____/_/|_| \n" << endl;
-	cout << "Introduction to Programming(2) 자율 팀 프로젝트 : 공학용 계산기 구현" << endl;
-	double seconds = 1000 * Seconds;
-	Sleep(seconds);	//convert millliseconds[ms] to sencods[s]
-	system("cls");
-}
-
-void PrintMode(void)
-{
-	PrintLine(0, 1, CONSOLECOLS);
-	PrintLine(0, 18, CONSOLECOLS);
-
-	PrintAt(24, 3, "조작 안내");
-	PrintAt(2, 4, "방향키로 위/아래를 이동하고 엔터 키를 이용해 선택합니다.");
-	PrintAt(5, 6, "1. Basic Calculation (기본 계산)");
-	PrintAt(5, 8, "2. Advanced Calculation (고급 계산:삼각/지수/로그함수 포함)");
-	PrintAt(5, 10, "3. Matrix (행렬 계산)");
-	PrintAt(5, 12, "4. Base-N (진수 변환)");
-	PrintAt(5, 14, "5. Quit (프로그램 종료)");
-}
-
-int SelectMode(void)
+int Calc_Util::SelectMode(void)
 {
 	int x = 7, y = 6;
 	while (1)
@@ -127,60 +162,48 @@ int SelectMode(void)
 	}
 }
 
-void PrintAt(int xpos, int ypos, string contents)
+void Calc_Util::Delay(double seconds)
 {
-	MoveCursor(xpos, ypos);
-	cout << contents;
+	Sleep(1000 * seconds);
 }
 
-void PrintAt(int xpos, int ypos, double db)
-{
-	MoveCursor(xpos, ypos);
-	cout << db;
-}
-
-void ExitCalc(int xpos, int ypos, double Seconds)
+void Calc_Util::ExitCalc(int xpos, int ypos, double Seconds)
 {
 	system("cls");
 	PrintLine(0, 1, CONSOLECOLS);
 	PrintLine(0, 18, CONSOLECOLS);
 
 	PrintAt(xpos, ypos, "프로그램이 종료됩니다.");
-	Sleep(1000 * Seconds);
+	Delay(1);
 	system("cls");
-	PrintTitle(1000 * Seconds);
+	PrintTitle(Seconds);
 }
 
-void ExitCalc(int xpos, int ypos, double Seconds, string Error)
+void Calc_Util::ExitCalc(int xpos, int ypos, double Seconds, string Error)
 {
 	system("cls");
 	PrintLine(0, 1, CONSOLECOLS);
 	PrintLine(0, 18, CONSOLECOLS);
 
 	PrintAt(xpos, ypos, Error);
-	PrintAt(xpos, ypos+1, "프로그램이 종료됩니다.");
+	PrintAt(xpos, ypos + 1, "프로그램이 종료됩니다.");
 	Sleep(1000 * Seconds);
 	system("cls");
 	PrintTitle(1000 * Seconds);
 }
 
-void Calc::ClearConsole(void)
-{
-	system("cls");
-}
-
-void Calc_basic::PrintGuide(int xpos, int ypos)
+void Calc_Basic::PrintGuide(int xpos, int ypos)
 {
 	PrintLine(0, 1, CONSOLECOLS);
 	PrintLine(0, 18, CONSOLECOLS);
 	MoveCursor(xpos, ypos);
 	cout <<
-		"<식 입력 안내>\n"
+		"<식 입력 안내 : 일반 연산 모드>\n"
 		"   중위표기법(Infix Notation)으로 작성된 식을 입력하세요.\n"
 		"   연산자 생략은 불가능합니다.\n";
 }
 
-void Calc_basic::SetInfixExp(int xpos, int ypos)
+void Calc_Basic::SetInfixExp(int xpos, int ypos)
 {
 	MoveCursor(xpos, ypos);
 	cout << "계산 식 : ";
@@ -189,7 +212,7 @@ void Calc_basic::SetInfixExp(int xpos, int ypos)
 	InfixExpression = tempExpression;
 }
 
-void Calc_basic::ConvertToPostfix(void)	//if parameter is const string --> Error C2440
+void Calc_Basic::ConvertToPostfix(void)	//if parameter is const string --> Error C2440
 {
 	string* ptrs = new string;
 	*ptrs = InfixExpression;
@@ -268,7 +291,7 @@ void Calc_basic::ConvertToPostfix(void)	//if parameter is const string --> Error
 	delete ptrs;
 }
 
-void Calc_basic::Calculate(void)
+void Calc_Basic::Calculate(void)
 {
 	string* ptrs = new string;
 	*ptrs = PostfixExpression;
@@ -317,8 +340,20 @@ void Calc_basic::Calculate(void)
 	result = stack.back();
 }
 
-void Calc_basic::PrintResult(int xpos, int ypos)
+void Calc_Basic::PrintResult(int xpos, int ypos)
 {
 	PrintAt(xpos, ypos, "계산 결과 : ");
 	PrintAt(xpos + 12, ypos, result);
+}
+
+Calc_Matrix::Calc_Matrix()
+{
+	rows = cols = 1;
+	double* ptm = new double[][];
+}
+
+void Calc_Matrix::DefineMatrix(void)
+{
+	PrintAt(5, 5, "정의할 행렬을 A~D중 선택하세요.");
+
 }

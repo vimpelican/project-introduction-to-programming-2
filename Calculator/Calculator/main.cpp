@@ -2,28 +2,27 @@
 
 int main(void)
 {
-	Calc* ptc;
-	Calc_basic* ptc_b = new Calc_basic;
+	Calc* ptc = new Calc;
+	Calc_Util* ptc_u = new Calc_Util;
+	Calc_Basic* ptc_b = new Calc_Basic;
 
 	Initialize();
-	PrintTitle(1.2);
+	ptc_u->PrintTitle(3);
 
 	while (1)
 	{
-		PrintMode();
-		int mode = SelectMode();
+		ptc_u->PrintMode();
+		int mode = ptc_u->SelectMode();
 		switch (mode)
 		{
 		case BASICCALC:
-		{
-			ptc_b->ClearConsole();
-			ptc_b->PrintGuide(22, 2);
+			ptc_u->ClearConsole();
+			ptc_b->PrintGuide(18, 2);
 			ptc_b->SetInfixExp(3, 6);
-			ptc_b->ConvertToPostfix();	//null pointer error, why?
+			ptc_b->ConvertToPostfix();
 			ptc_b->Calculate();
 			ptc_b->PrintResult(3, 10);
-			Sleep(10000);
-		}
+			ptc_u->Delay(1);
 			break;
 		case ADVANCEDCALC:
 			break;
@@ -32,14 +31,14 @@ int main(void)
 		case MATRIX:
 			break;
 		case QUIT:
-			ExitCalc(5, 5, 1.2);
+			ptc_u->ExitCalc(5, 5, 1.4);
 			return 0;
 		default:
 			break;
 		}
-		ptc_b->ClearConsole();
+		ptc_u->ClearConsole();
 	}
 	//Unknown error -- in normal input, cannot reach this point
-	ExitCalc(5, 5, 1.2, "도달할 수 없는 main() 함수의 끝에 도달했습니다.");
+	ptc_u->ExitCalc(5, 5, 1.4, "도달할 수 없는 main() 함수의 끝에 도달했습니다.");
 	return 0;
 }
