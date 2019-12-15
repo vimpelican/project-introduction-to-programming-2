@@ -10,6 +10,9 @@
 #define KEY_RIGHT 77	//define ASCII code for arrow key
 #define SUBMIT 13		//define ASCII code for enter key(\r) -- use enter key to submit
 #define ESC 27			//define ASCII code for ESC key -- use ESC key to cancle
+#define AC '#';
+#define A 65
+#define B 66
 
 #define BASICCALC 1
 #define ADVANCEDCALC 2
@@ -45,7 +48,6 @@ class Calc {
 private:
 protected:
 public:
-	Calc();
 	//추상적인 계산기 클래스
 };
 
@@ -53,7 +55,7 @@ class Calc_Util : public Calc {
 private:
 protected:
 public:
-	Calc_Util();
+
 	void ClearConsole(void);
 	void PrintTitle(double seconds);
 	void PrintGuide(int xpos, int ypos);
@@ -74,11 +76,11 @@ private:
 protected:
 	string InfixExpression;
 	string PostfixExpression;
-	string tempExpression;	//string to save infix expression temporarily -- to divide GetInfixExp() and SetInfixExp()
-	const string operators = "(+-*/)";	//available opeartors -- parenthes, plus, minus, multiple, divide
+	string tempExpression;			//string to save infix expression temporarily -- to divide GetInfixExp() and SetInfixExp()
+	const string operators = "(+-*/)";		//available opeartors -- parenthes, plus, minus, multiple, divide
 	double result;
 public:
-	Calc_Basic() : result(0.0) {};
+
 	void PrintGuide(int xpos, int ypos);
 	double GetResult(void) const { return result; };
 	void SetInfixExp(int xpos, int ypos);
@@ -95,24 +97,31 @@ protected:
 	const float E = M_E;
 public:
 	/*
-	기본 공학용 기능(폰 계산기 기능 + 추가적인 기능들)
 	1. 삼각함수, 쌍곡선함수, 역삼각함수의 기본 연산
 	2. 지수, 로그, 제곱근 계산
 	3. 자주 쓰이는 상수(e, pi 등) 바로 계산 식에 포함 가능
 	*/
 };
 
+
 class Calc_Matrix : public Calc_Advanced {
 private:
 protected:
-	int rows;	//행의 수
-	int cols;	//열의 수
+	int* rows;	//행의 수
+	int* cols;	//열의 수
+	double* Matrix_A;
+	double* Matrix_B;
 public:
 	Calc_Matrix();
+	~Calc_Matrix();
+
 	void DefineMatrix(void);
 	void EditMatrix(void);
 	void GetMatrix(void);
 	void Calculate(void);
+	//double operator+();
+	//double operator-();
+	//double operator*();
 	//행렬 연산을 수행하는 클래스
 };
 

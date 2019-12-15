@@ -2,9 +2,9 @@
 
 int main(void)
 {
-	Calc* ptc = new Calc;
 	Calc_Util* ptc_u = new Calc_Util;
 	Calc_Basic* ptc_b = new Calc_Basic;
+	Calc_Matrix* ptc_m = new Calc_Matrix;
 
 	Initialize();
 	ptc_u->PrintTitle(3);
@@ -22,14 +22,16 @@ int main(void)
 			ptc_b->ConvertToPostfix();
 			ptc_b->Calculate();
 			ptc_b->PrintResult(3, 10);
-			ptc_u->Delay(1);
+			ptc_b->Delay(1.2);
 			break;
 		case ADVANCEDCALC:
 			break;
 		case BASE_N:
 			break;
 		case MATRIX:
-			break;
+			ptc_u->ClearConsole();
+			ptc_m->DefineMatrix();
+			continue;
 		case QUIT:
 			ptc_u->ExitCalc(5, 5, 1.4);
 			return 0;

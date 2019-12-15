@@ -21,21 +21,10 @@ void MoveCursor(int x, int y)
 	SetConsoleCursorPosition(consoleHandle, pos);
 }
 
-Calc::Calc()
-{
-
-}
-
-Calc_Util::Calc_Util()
-{
-
-}
-
 void Calc_Util::ClearConsole(void)
 {
 	system("cls");
 }
-
 void Calc_Util::PrintTitle(double seconds)
 {
 	MoveCursor(0, 3);
@@ -48,7 +37,6 @@ void Calc_Util::PrintTitle(double seconds)
 	Delay(seconds);
 	system("cls");
 }
-
 void Calc_Util::PrintGuide(int xpos, int ypos)
 {
 	PrintLine(0, 1, CONSOLECOLS);
@@ -59,26 +47,22 @@ void Calc_Util::PrintGuide(int xpos, int ypos)
 		"   중위표기법(Infix Notation)으로 작성된 식을 입력하세요.\n"
 		"   연산자 생략은 불가능합니다.\n";
 }
-
 void Calc_Util::PrintAt(int xpos, int ypos, string contents)
 {
 	MoveCursor(xpos, ypos);
 	cout << contents;
 }
-
 void Calc_Util::PrintAt(int xpos, int ypos, double db)
 {
 	MoveCursor(xpos, ypos);
 	cout << db;
 }
-
 void Calc_Util::PrintLine(int xpos, int ypos, int amount)
 {
 	MoveCursor(xpos, ypos);
 	for (int i = 0; i < amount; i++)
 		cout << "=";
 }
-
 void Calc_Util::PrintMode(void)
 {
 	PrintLine(0, 1, CONSOLECOLS);
@@ -91,30 +75,33 @@ void Calc_Util::PrintMode(void)
 	PrintAt(5, 12, "4. Base-N (진수 변환)");
 	PrintAt(5, 14, "5. Quit (프로그램 종료)");
 }
-
 int Calc_Util::ReadKey(void)
 {
 	int temp = _getch();
 
 	switch (temp)
 	{
-	case 72:
+	case KEY_UP:
 		return KEY_UP;
-	case 80:
+	case KEY_DOWN:
 		return KEY_DOWN;
-	case 75:
+	case KEY_LEFT:
 		return KEY_LEFT;
-	case 77:
+	case KEY_RIGHT:
 		return KEY_RIGHT;
-	case 13:
+	case SUBMIT:
 		return SUBMIT;
-	case 27:
+	case ESC:
 		return ESC;
+	case A:
+		return A;
+	case B:
+		return B;
+
 	default:
 		break;
 	}
 }
-
 int Calc_Util::SelectMode(void)
 {
 	int x = 7, y = 6;
@@ -161,35 +148,32 @@ int Calc_Util::SelectMode(void)
 		}
 	}
 }
-
 void Calc_Util::Delay(double seconds)
 {
 	Sleep(1000 * seconds);
 }
-
 void Calc_Util::ExitCalc(int xpos, int ypos, double Seconds)
 {
-	system("cls");
+	ClearConsole();
 	PrintLine(0, 1, CONSOLECOLS);
 	PrintLine(0, 18, CONSOLECOLS);
 
 	PrintAt(xpos, ypos, "프로그램이 종료됩니다.");
 	Delay(1);
-	system("cls");
+	ClearConsole();
 	PrintTitle(Seconds);
 }
-
 void Calc_Util::ExitCalc(int xpos, int ypos, double Seconds, string Error)
 {
-	system("cls");
+	ClearConsole();
 	PrintLine(0, 1, CONSOLECOLS);
 	PrintLine(0, 18, CONSOLECOLS);
 
 	PrintAt(xpos, ypos, Error);
 	PrintAt(xpos, ypos + 1, "프로그램이 종료됩니다.");
-	Sleep(1000 * Seconds);
-	system("cls");
-	PrintTitle(1000 * Seconds);
+	Delay(1);
+	ClearConsole();
+	PrintTitle(Seconds);
 }
 
 void Calc_Basic::PrintGuide(int xpos, int ypos)
@@ -202,16 +186,14 @@ void Calc_Basic::PrintGuide(int xpos, int ypos)
 		"   중위표기법(Infix Notation)으로 작성된 식을 입력하세요.\n"
 		"   연산자 생략은 불가능합니다.\n";
 }
-
 void Calc_Basic::SetInfixExp(int xpos, int ypos)
 {
 	MoveCursor(xpos, ypos);
 	cout << "계산 식 : ";
 	MoveCursor(xpos + 10, ypos);
-	cin >> tempExpression;	//null pointer error, why?
+	cin >> tempExpression;
 	InfixExpression = tempExpression;
 }
-
 void Calc_Basic::ConvertToPostfix(void)	//if parameter is const string --> Error C2440
 {
 	string* ptrs = new string;
@@ -290,7 +272,6 @@ void Calc_Basic::ConvertToPostfix(void)	//if parameter is const string --> Error
 	PostfixExpression = *ptrs;
 	delete ptrs;
 }
-
 void Calc_Basic::Calculate(void)
 {
 	string* ptrs = new string;
@@ -339,21 +320,81 @@ void Calc_Basic::Calculate(void)
 	}
 	result = stack.back();
 }
-
 void Calc_Basic::PrintResult(int xpos, int ypos)
 {
 	PrintAt(xpos, ypos, "계산 결과 : ");
 	PrintAt(xpos + 12, ypos, result);
 }
 
+
 Calc_Matrix::Calc_Matrix()
 {
-	rows = cols = 1;
-	double* ptm = new double[][];
+	//int* rows = new int;
+	//int* cols = new int;
+	//double* Matrix_A = new double;
+	//double* Matrix_B = new double;
 }
-
+Calc_Matrix::~Calc_Matrix()
+{
+	//delete Matrix_A;
+	//delete Matrix_B;
+}
 void Calc_Matrix::DefineMatrix(void)
 {
-	PrintAt(5, 5, "정의할 행렬을 A~D중 선택하세요.");
+	PrintAt(5, 5, "A,B중 정의할 행렬을 키보드로 입력해 주세요.");
+	int selected = ReadKey();
+	if (selected == A)
+	{
+		ClearConsole();
+		int rows_temp, cols_temp;
+		PrintAt(5, 5, "행 수를 선택하세요.(1~3)");
+		cin >> rows_temp;
+		PrintAt(5, 8, "열 수를 선택하세요.(1~3)");
+		cin >> cols_temp;
+
+		ClearConsole();
+		double** Matrix_A = new double*[cols_temp];	//dynamically allocate 2d array
+		for (int i = 0; i < cols_temp; i++)
+		{
+			Matrix_A[i] = new double[rows_temp];
+			memset(Matrix_A[i], 0, sizeof(double)*rows_temp);	//initialize memory space to 0
+		}
+
+		PrintAt(5, 5, "각 성분들을 입력하세요. 비워둘 수 없습니다.");
+		for (int j = 0; j < cols_temp; j++)
+		{
+			for (int k = 0; k < rows_temp; k++)
+			{
+				cin >> Matrix_A[j][k];
+			}
+		}
+		ClearConsole();
+		PrintAt(5, 5, "입력한 행렬은 다음과 같습니다.");
+		for (int j = 0; j < cols_temp; j++)
+		{
+			for (int k = 0; k < rows_temp; k++)
+			{
+				cout << Matrix_A[j][k] << " ";
+			}
+			cout << endl;
+		}
+		Delay(5);
+		ClearConsole();
+	}
+	else if (selected == B)
+	{
+
+	}
+}
+void Calc_Matrix::EditMatrix(void)
+{
+
+}
+void Calc_Matrix::GetMatrix(void)
+{
+
+}
+void Calc_Matrix::Calculate(void)
+{
 
 }
