@@ -48,7 +48,7 @@ public:
 	void ClearConsole(void);
 
 	/*
-	화면을 모두 관리하는 계산기 클래스
+	화면을 관리하지만 계산은 하지 않는 계산기 클래스
 	*/
 };
 
@@ -57,19 +57,18 @@ private:
 protected:
 	string InfixExpression;
 	string PostfixExpression;
+	string tempExpression;	//string to save infix expression temporarily -- to divide GetInfixExp() and SetInfixExp()
 	const string operators = "(+-*/)";	//available opeartors -- parenthes, plus, minus, multiple, divide
 	double result;
-	string tempExpression;
 public:
 	Calc_basic() : result(0.0) {};
-	void SetResult(double db) { result = db; }
-	double GetResult(void) { return result; }
-
 	void PrintGuide(int xpos, int ypos);
-	void GetInfixExp(void);
-	void SetInfixExp(void);
+	void SetResult(double db) { result = db; }
+	double GetResult(void) const { return result; };
+	void SetInfixExp(int xpos, int ypos);
 	void ConvertToPostfix(void);
 	void Calculate(void);
+	void PrintResult(int xpos, int ypos);
 };
 
 class Calc_Eng : public Calc_basic {
@@ -100,9 +99,11 @@ void Initialize(void);
 void MoveCursor(int x, int y);
 void PrintLine(int xPos, int yPos, int amount);
 int ReadKey(void);
-void PrintTitle(float Seconds);
+void PrintTitle(double Seconds);
 void PrintMode(void);
 int SelectMode(void);
-void PrintAt(int, int, string);
-void PrintAt(int, int, double);
+void PrintAt(int xpos, int ypos, string contents);
+void PrintAt(int xpos, int ypos, double db);
+void ExitCalc(int xpos, int ypos, double Seconds);
+void ExitCalc(int xpos, int ypos, double Seconds, string Error);
 #endif

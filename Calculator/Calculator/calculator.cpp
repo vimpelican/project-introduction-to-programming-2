@@ -51,7 +51,7 @@ int ReadKey(void)
 	}
 }
 
-void PrintTitle(float Seconds)
+void PrintTitle(double Seconds)
 {
 	MoveCursor(0, 2);
 	cout << endl;
@@ -61,7 +61,7 @@ void PrintTitle(float Seconds)
 		"/ /__/ __ |/ /__/ /__/ /_/ / /__/ __ |/ / / /_/ / , _/\n"
 		"\\___/_/ |_/____/\\___\/\____/____/_/ |_/_/  \\____/_/|_| \n" << endl;
 	cout << "Introduction to Programming(2) 자율 팀 프로젝트 : 공학용 계산기 구현" << endl;
-	int seconds = 1000 * Seconds;
+	double seconds = 1000 * Seconds;
 	Sleep(seconds);	//convert millliseconds[ms] to sencods[s]
 	system("cls");
 }
@@ -139,6 +139,31 @@ void PrintAt(int xpos, int ypos, double db)
 	cout << db;
 }
 
+void ExitCalc(int xpos, int ypos, double Seconds)
+{
+	system("cls");
+	PrintLine(0, 1, CONSOLECOLS);
+	PrintLine(0, 18, CONSOLECOLS);
+
+	PrintAt(xpos, ypos, "프로그램이 종료됩니다.");
+	Sleep(1000 * Seconds);
+	system("cls");
+	PrintTitle(1000 * Seconds);
+}
+
+void ExitCalc(int xpos, int ypos, double Seconds, string Error)
+{
+	system("cls");
+	PrintLine(0, 1, CONSOLECOLS);
+	PrintLine(0, 18, CONSOLECOLS);
+
+	PrintAt(xpos, ypos, Error);
+	PrintAt(xpos, ypos+1, "프로그램이 종료됩니다.");
+	Sleep(1000 * Seconds);
+	system("cls");
+	PrintTitle(1000 * Seconds);
+}
+
 void Calc::ClearConsole(void)
 {
 	system("cls");
@@ -155,13 +180,12 @@ void Calc_basic::PrintGuide(int xpos, int ypos)
 		"   연산자 생략은 불가능합니다.\n";
 }
 
-void Calc_basic::GetInfixExp(void)
+void Calc_basic::SetInfixExp(int xpos, int ypos)
 {
+	MoveCursor(xpos, ypos);
+	cout << "계산 식 : ";
+	MoveCursor(xpos + 10, ypos);
 	cin >> tempExpression;	//null pointer error, why?
-}
-
-void Calc_basic::SetInfixExp(void)
-{
 	InfixExpression = tempExpression;
 }
 
@@ -290,8 +314,11 @@ void Calc_basic::Calculate(void)
 			}
 		}
 	}
-	double* ptd = new double;
-	*ptd = stack.back();
-	result = *ptd;
-	delete ptd;
+	result = stack.back();
+}
+
+void Calc_basic::PrintResult(int xpos, int ypos)
+{
+	PrintAt(xpos, ypos, "계산 결과 : ");
+	PrintAt(xpos + 12, ypos, result);
 }

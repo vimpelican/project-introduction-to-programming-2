@@ -7,21 +7,21 @@ int main(void)
 
 	Initialize();
 	PrintTitle(1.2);
-	PrintMode();
 
-	while (int i = SelectMode())
+	while (1)
 	{
-		switch (i)
+		PrintMode();
+		int mode = SelectMode();
+		switch (mode)
 		{
 		case BASICCALC:
 		{
 			ptc_b->ClearConsole();
 			ptc_b->PrintGuide(22, 2);
-			ptc_b->GetInfixExp();
-			ptc_b->SetInfixExp();
+			ptc_b->SetInfixExp(3, 6);
 			ptc_b->ConvertToPostfix();	//null pointer error, why?
 			ptc_b->Calculate();
-			cout << ptc_b->GetResult() << endl;
+			ptc_b->PrintResult(3, 10);
 			Sleep(10000);
 		}
 			break;
@@ -32,12 +32,14 @@ int main(void)
 		case MATRIX:
 			break;
 		case QUIT:
-			break;
+			ExitCalc(5, 5, 1.2);
+			return 0;
 		default:
 			break;
 		}
 		ptc_b->ClearConsole();
 	}
-	getchar();
+	//Unknown error -- in normal input, cannot reach this point
+	ExitCalc(5, 5, 1.2, "도달할 수 없는 main() 함수의 끝에 도달했습니다.");
 	return 0;
 }
