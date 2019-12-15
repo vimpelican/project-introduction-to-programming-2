@@ -1,6 +1,5 @@
 #include "calculator.h"
 
-
 int main(void)
 {
 	Calc* ptc;
@@ -10,23 +9,20 @@ int main(void)
 	PrintTitle(1.2);
 	PrintMode();
 
-	while (1)
+	while (int i = SelectMode())
 	{
-		int i = SelectMode();
 		switch (i)
 		{
 		case BASICCALC:
 		{
 			ptc_b->ClearConsole();
-			ptc_b->PrintGuide();
-			while (ReadKey() != ESC)
-			{
-				ptc_b->GetSetInfixExp();
-				ptc_b->ConvertToPostfix();	//null pointer error, why?
-				ptc_b->Calculate();
-				cout << ptc_b->GetResult() << endl;
-				Sleep(1000);
-			}
+			ptc_b->PrintGuide(22, 2);
+			ptc_b->GetInfixExp();
+			ptc_b->SetInfixExp();
+			ptc_b->ConvertToPostfix();	//null pointer error, why?
+			ptc_b->Calculate();
+			cout << ptc_b->GetResult() << endl;
+			Sleep(10000);
 		}
 			break;
 		case ADVANCEDCALC:
@@ -36,11 +32,11 @@ int main(void)
 		case MATRIX:
 			break;
 		case QUIT:
-			return 0;
+			break;
 		default:
 			break;
 		}
-		system("cls");
+		ptc_b->ClearConsole();
 	}
 	getchar();
 	return 0;

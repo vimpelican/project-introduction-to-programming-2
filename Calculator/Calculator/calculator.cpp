@@ -71,22 +71,13 @@ void PrintMode(void)
 	PrintLine(0, 1, CONSOLECOLS);
 	PrintLine(0, 18, CONSOLECOLS);
 
-	MoveCursor(24, 3);
-	cout << "<조작 안내>";
-	MoveCursor(2, 4);
-	cout << "방향키로 위/아래를 이동하고 엔터 키를 이용해 선택합니다.";
-
-	int x = 5, y = 6;
-	MoveCursor(x, y);
-	cout << "1. Basic Calculation (기본 계산)";
-	MoveCursor(x, y + 2);
-	cout << "2. Advanced Calculation (고급 계산:삼각/지수/로그함수 포함)";
-	MoveCursor(x, y + 4);
-	cout << "3. Matrix (행렬 계산)";
-	MoveCursor(x, y + 6);
-	cout << "4. Base-N (진수 변환)";
-	MoveCursor(x, y + 8);
-	cout << "5. Quit (프로그램 종료)";
+	PrintAt(24, 3, "조작 안내");
+	PrintAt(2, 4, "방향키로 위/아래를 이동하고 엔터 키를 이용해 선택합니다.");
+	PrintAt(5, 6, "1. Basic Calculation (기본 계산)");
+	PrintAt(5, 8, "2. Advanced Calculation (고급 계산:삼각/지수/로그함수 포함)");
+	PrintAt(5, 10, "3. Matrix (행렬 계산)");
+	PrintAt(5, 12, "4. Base-N (진수 변환)");
+	PrintAt(5, 14, "5. Quit (프로그램 종료)");
 }
 
 int SelectMode(void)
@@ -136,6 +127,18 @@ int SelectMode(void)
 	}
 }
 
+void PrintAt(int xpos, int ypos, string contents)
+{
+	MoveCursor(xpos, ypos);
+	cout << contents;
+}
+
+void PrintAt(int xpos, int ypos, double db)
+{
+	MoveCursor(xpos, ypos);
+	cout << db;
+}
+
 void Calc::ClearConsole(void)
 {
 	system("cls");
@@ -143,20 +146,23 @@ void Calc::ClearConsole(void)
 
 void Calc_basic::PrintGuide(int xpos, int ypos)
 {
+	PrintLine(0, 1, CONSOLECOLS);
+	PrintLine(0, 18, CONSOLECOLS);
 	MoveCursor(xpos, ypos);
-	PrintLine(3, 3, CONSOLECOLS);
-	cout << "\n\n";
-	cout << "중위표기법(Infix Notation)으로 작성된 식을 입력하세요. 연산자 생략은 불가능합니다.\n";
+	cout <<
+		"<식 입력 안내>\n"
+		"   중위표기법(Infix Notation)으로 작성된 식을 입력하세요.\n"
+		"   연산자 생략은 불가능합니다.\n";
 }
-void Calc_basic::GetSetInfixExp(void)
-{
-	string temp;
-	string* ptrs = new string;
-	cin >> temp;	//null pointer error, why?
 
-	*ptrs = temp;
-	InfixExpression = *ptrs;
-	delete ptrs;
+void Calc_basic::GetInfixExp(void)
+{
+	cin >> tempExpression;	//null pointer error, why?
+}
+
+void Calc_basic::SetInfixExp(void)
+{
+	InfixExpression = tempExpression;
 }
 
 void Calc_basic::ConvertToPostfix(void)	//if parameter is const string --> Error C2440

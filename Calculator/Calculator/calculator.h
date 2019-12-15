@@ -15,7 +15,8 @@
 #define ADVANCEDCALC 2
 #define MATRIX 3
 #define BASE_N 4
-#define QUIT 5			//define each mode in integer type (1~5)
+#define QUIT 0			//define each mode in integer type
+#define RETURN 100		//return value to return to mode select screen
 
 #include <iostream>
 #include <Windows.h>
@@ -45,6 +46,7 @@ private:
 protected:
 public:
 	void ClearConsole(void);
+
 	/*
 	화면을 모두 관리하는 계산기 클래스
 	*/
@@ -57,13 +59,15 @@ protected:
 	string PostfixExpression;
 	const string operators = "(+-*/)";	//available opeartors -- parenthes, plus, minus, multiple, divide
 	double result;
+	string tempExpression;
 public:
 	Calc_basic() : result(0.0) {};
 	void SetResult(double db) { result = db; }
 	double GetResult(void) { return result; }
 
 	void PrintGuide(int xpos, int ypos);
-	void GetSetInfixExp(void);
+	void GetInfixExp(void);
+	void SetInfixExp(void);
 	void ConvertToPostfix(void);
 	void Calculate(void);
 };
@@ -94,10 +98,11 @@ public:
 
 void Initialize(void);
 void MoveCursor(int x, int y);
+void PrintLine(int xPos, int yPos, int amount);
 int ReadKey(void);
 void PrintTitle(float Seconds);
 void PrintMode(void);
 int SelectMode(void);
-void PrintLine(int xPos, int yPos, int amount);
-
+void PrintAt(int, int, string);
+void PrintAt(int, int, double);
 #endif
