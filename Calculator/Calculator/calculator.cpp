@@ -25,6 +25,12 @@ void Calc_Util::ClearConsole(void)
 {
 	system("cls");
 }
+void Calc_Util::RefreshConsole(void)
+{
+	ClearConsole();
+	PrintLine(0, 1, CONSOLECOLS);
+	PrintLine(0, 18, CONSOLECOLS);
+}
 void Calc_Util::PrintTitle(double seconds)
 {
 	MoveCursor(0, 3);
@@ -39,13 +45,9 @@ void Calc_Util::PrintTitle(double seconds)
 }
 void Calc_Util::PrintGuide(int xpos, int ypos)
 {
-	PrintLine(0, 1, CONSOLECOLS);
-	PrintLine(0, 18, CONSOLECOLS);
 	MoveCursor(xpos, ypos);
 	cout <<
-		"<식 입력 안내>\n"
-		"   중위표기법(Infix Notation)으로 작성된 식을 입력하세요.\n"
-		"   연산자 생략은 불가능합니다.\n";
+		"<식 입력 안내>\n";
 }
 void Calc_Util::PrintAt(int xpos, int ypos, string contents)
 {
@@ -65,9 +67,7 @@ void Calc_Util::PrintLine(int xpos, int ypos, int amount)
 }
 void Calc_Util::PrintMode(void)
 {
-	PrintLine(0, 1, CONSOLECOLS);
-	PrintLine(0, 18, CONSOLECOLS);
-
+	RefreshConsole();
 	PrintAt(2, 4, "방향키로 위/아래를 이동하고 엔터 키를 이용해 선택합니다.");
 	PrintAt(5, 6, "1. Basic Calculation (기본 계산)");
 	PrintAt(5, 8, "2. Advanced Calculation (고급 계산:삼각/지수/로그함수 포함)");
@@ -97,8 +97,10 @@ int Calc_Util::ReadKey(void)
 		return A;
 	case B:
 		return B;
-
+	case 1:
+		return 1;
 	default:
+		return temp;
 		break;
 	}
 }
@@ -178,8 +180,7 @@ void Calc_Util::ExitCalc(int xpos, int ypos, double Seconds, string Error)
 
 void Calc_Basic::PrintGuide(int xpos, int ypos)
 {
-	PrintLine(0, 1, CONSOLECOLS);
-	PrintLine(0, 18, CONSOLECOLS);
+	RefreshConsole();
 	MoveCursor(xpos, ypos);
 	cout <<
 		"<식 입력 안내 : 일반 연산 모드>\n"
@@ -326,62 +327,119 @@ void Calc_Basic::PrintResult(int xpos, int ypos)
 	PrintAt(xpos + 12, ypos, result);
 }
 
-
 Calc_Matrix::Calc_Matrix()
 {
-	//int* rows = new int;
-	//int* cols = new int;
-	//double* Matrix_A = new double;
-	//double* Matrix_B = new double;
+
 }
 Calc_Matrix::~Calc_Matrix()
 {
-	//delete Matrix_A;
-	//delete Matrix_B;
+
+}
+void Calc_Matrix::PrintGuide(int xpos, int ypos)
+{
+	RefreshConsole();
+	MoveCursor(xpos, ypos);
+	cout <<
+		"<식 입력 안내 : 행렬 연산 모드>\n"
+		"   A,B중 정의할 행렬을 키보드로 입력해 주세요.\n";
+}
+void Calc_Matrix::PrintMode(void)
+{
+	RefreshConsole();
+	PrintAt(2, 4, "방향키로 위/아래를 이동하고 엔터 키를 이용해 선택합니다.");
+	PrintAt(5, 6, "1. 행렬 정의");
+	PrintAt(5, 8, "2. 행렬 수정");
+	PrintAt(5, 10, "3. 행렬 연산");
+}
+int Calc_Matrix::SelectMode(void)
+{
+	int x = 7, y = 6;
+	while (1)
+	{
+		int n = ReadKey();
+		switch (n) {
+		case KEY_UP:
+		{
+			if (y > 6)
+			{
+				MoveCursor(x - 3, y);
+				cout << " ";
+				MoveCursor(x - 3, y -= 2);
+				cout << ">";
+			}
+		}
+		break;
+		case KEY_DOWN:
+		{
+			if (y < 14)
+			{
+				MoveCursor(x - 3, y);
+				cout << " ";
+				MoveCursor(x - 3, y += 2);
+				cout << ">";
+			}
+		}
+		break;
+		case SUBMIT:
+		{
+			if (y == 6)
+				return DEFINEMATRIX;
+			else if (y == 8)
+				return EDITMATRIX;
+			else if (y == 10)
+				return CALCULATEMATRIX;
+		}
+		break;
+		}
+	}
+}
+void Calc_Matrix::SetRC(void)
+{
+
 }
 void Calc_Matrix::DefineMatrix(void)
 {
+	RefreshConsole();
 	PrintAt(5, 5, "A,B중 정의할 행렬을 키보드로 입력해 주세요.");
-	int selected = ReadKey();
-	if (selected == A)
+	if (ReadKey() == A)
 	{
-		ClearConsole();
-		int rows_temp, cols_temp;
+		RefreshConsole();
 		PrintAt(5, 5, "행 수를 선택하세요.(1~3)");
-		cin >> rows_temp;
-		PrintAt(5, 8, "열 수를 선택하세요.(1~3)");
-		cin >> cols_temp;
+		cin >> rows;
+		PrintAt(5, 6, "열 수를 선택하세요.(1~3)");
+		cin >> cols;
 
-		ClearConsole();
-		double** Matrix_A = new double*[cols_temp];	//dynamically allocate 2d array
-		for (int i = 0; i < cols_temp; i++)
+		RefreshConsole();
+		double** Matrix_temp = new double*[cols];	//dynamically allocate 2d array
+		for (int i = 0; i < cols; i++)
 		{
-			Matrix_A[i] = new double[rows_temp];
-			memset(Matrix_A[i], 0, sizeof(double)*rows_temp);	//initialize memory space to 0
+			Matrix_temp[i] = new double[rows];
+			memset(Matrix_temp[i], 0, sizeof(double)*(cols));	//initialize memory space to 0
 		}
-
+		RefreshConsole();
 		PrintAt(5, 5, "각 성분들을 입력하세요. 비워둘 수 없습니다.");
-		for (int j = 0; j < cols_temp; j++)
+		for (int r = 0; r < rows; r++)
 		{
-			for (int k = 0; k < rows_temp; k++)
+			for (int c = 0; c < cols; c++)
 			{
-				cin >> Matrix_A[j][k];
+				MoveCursor(5, 6);
+				cin >> Matrix_temp[r][c];
 			}
 		}
-		ClearConsole();
-		PrintAt(5, 5, "입력한 행렬은 다음과 같습니다.");
-		for (int j = 0; j < cols_temp; j++)
+		RefreshConsole();
+		
+		for (int r = 0; r < rows; r++)
 		{
-			for (int k = 0; k < rows_temp; k++)
+			for (int c = 0; c < cols; c++)
 			{
-				cout << Matrix_A[j][k] << " ";
+				PrintAt(5 + r, 6 + c, Matrix_temp[r][c]);
 			}
-			cout << endl;
 		}
-		Delay(5);
-		ClearConsole();
+		
+		Delay(1);
+		RefreshConsole();
 	}
-	else if (selected == B)
+	else if (ReadKey() == B)
 	{
 
 	}
@@ -389,6 +447,32 @@ void Calc_Matrix::DefineMatrix(void)
 void Calc_Matrix::EditMatrix(void)
 {
 
+}
+void Calc_Matrix::ShowMatrix(void)
+{
+	RefreshConsole();
+	PrintAt(5, 5, "ShowMatrix()");
+	Delay(2);
+	RefreshConsole();
+
+	double** Matrix_A = new double*[cols];	//dynamically allocate 2d array
+	for (int i = 0; i < cols; i++)
+	{
+		Matrix_A[i] = new double[rows];
+		memset(Matrix_A[i], 0, sizeof(double)*(rows));	//initialize memory space to 0
+	}
+
+	for (int r = 0; r < rows; r++)
+	{
+		for (int c = 0; c < cols; c++)
+		{
+			PrintAt(5 + r, 6 + c, Matrix_A[r][c]);
+		}
+	}
+		cout << endl;
+	Delay(5);
+	RefreshConsole();
+	
 }
 void Calc_Matrix::GetMatrix(void)
 {

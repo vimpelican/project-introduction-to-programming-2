@@ -21,6 +21,10 @@
 #define QUIT 0			//define each mode in integer type
 #define RETURN 100		//return value to return to mode select screen
 
+#define DEFINEMATRIX 1000
+#define EDITMATRIX 1001
+#define CALCULATEMATRIX 1002
+
 #include <iostream>
 #include <Windows.h>
 #include <conio.h>	//for using _getch()
@@ -55,8 +59,8 @@ class Calc_Util : public Calc {
 private:
 protected:
 public:
-
 	void ClearConsole(void);
+	void RefreshConsole(void);	//ClearConsole + PrintLine
 	void PrintTitle(double seconds);
 	void PrintGuide(int xpos, int ypos);
 	void PrintAt(int xpos, int ypos, string contents);
@@ -96,6 +100,7 @@ protected:
 	const float PI = M_PI;
 	const float E = M_E;
 public:
+	
 	/*
 	1. 삼각함수, 쌍곡선함수, 역삼각함수의 기본 연산
 	2. 지수, 로그, 제곱근 계산
@@ -103,20 +108,23 @@ public:
 	*/
 };
 
-
 class Calc_Matrix : public Calc_Advanced {
 private:
 protected:
-	int* rows;	//행의 수
-	int* cols;	//열의 수
-	double* Matrix_A;
-	double* Matrix_B;
+	int rows;	//행의 수
+	int cols;	//열의 수
 public:
 	Calc_Matrix();
 	~Calc_Matrix();
 
+	void PrintGuide(int xpos, int ypos);
+	void PrintMode(void);
+	int SelectMode(void);
+
+	void SetRC(void);
 	void DefineMatrix(void);
 	void EditMatrix(void);
+	void ShowMatrix(void);
 	void GetMatrix(void);
 	void Calculate(void);
 	//double operator+();
