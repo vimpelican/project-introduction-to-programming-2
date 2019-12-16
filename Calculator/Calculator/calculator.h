@@ -14,7 +14,7 @@
 #define A 65
 #define B 66
 
-#define CALCULATION 1
+#define ARITHMETIC 1
 #define MATRIX 2
 #define BASE_N 3
 #define QUIT 4			//define each mode in integer type

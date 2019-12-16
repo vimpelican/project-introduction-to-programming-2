@@ -21,6 +21,7 @@ void Utility::RefreshConsole(void)
 	for (int i = 0; i < CONSOLECOLS; i++)
 		cout << "=";	//print lower line
 	//reason why divide two for loop -- better performance(using one loop is slow)
+	SetPos(xPos, yPos);
 }
 void Utility::WaitforSec(double seconds)
 {
@@ -97,23 +98,25 @@ void Utility::PrintModes(string setting)
 	{
 		SetPos(xPos, yPos);
 		PrintConsole("1. 행렬 정의");
-		SetPos(xPos, yPos + 2);
+		SetPos(xPos, yPos + 3);
 		PrintConsole("2. 행렬 수정");
-		SetPos(xPos, yPos + 4);
+		SetPos(xPos, yPos + 3);
 		PrintConsole("3. 행렬 연산");
+		SetPos(xPos, yPos - 6);
 	}
 	else if (setting == "MATRIX_CALCULATION")
 	{
 		SetPos(xPos, yPos);
 		PrintConsole("1. 행렬 덧셈");
-		SetPos(xPos, yPos + 2);
+		SetPos(xPos, yPos + 3);
 		PrintConsole("2. 스칼라 곱");
-		SetPos(xPos, yPos + 4);
+		SetPos(xPos, yPos + 3);
 		PrintConsole("3. 전치");
-		SetPos(xPos, yPos + 6);
+		SetPos(xPos, yPos + 3);
 		PrintConsole("4. 행렬 곱셈");
-		SetPos(xPos, yPos + 8);
+		SetPos(xPos, yPos + 3);
 		PrintConsole("5. 역행렬 구하기");
+		SetPos(xPos, yPos - 12);
 	}
 }
 int Utility::SelectMode(string setting)
@@ -153,7 +156,7 @@ int Utility::SelectMode(string setting)
 			case SUBMIT:
 			{
 				if (y_temp == yPos)
-					return CALCULATION;
+					return ARITHMETIC;
 				else if (y_temp == yPos + 3)
 					return MATRIX;
 				else if (y_temp == yPos + 6)
@@ -242,7 +245,7 @@ int Utility::SelectMode(string setting)
 			case SUBMIT:
 			{
 				if (y_temp == 6)
-					return CALCULATION;
+					return ARITHMETIC;
 				else if (y_temp == 8)
 					return MATRIX;
 				else if (y_temp == 10)
@@ -263,7 +266,7 @@ void Utility::ExitCalc(void)
 	SetPos(7, 10);
 	PrintConsole("프로그램을 종료합니다.");
 	WaitforSec(1.5);
-	RefreshConsole();
+	system("cls");
 	SetPos(0, 0);
 	PrintTitle();
 	WaitforSec(1.5);
@@ -271,5 +274,13 @@ void Utility::ExitCalc(void)
 }
 void Utility::ExitCalc(string error)
 {
-	PrintConsole(error);
+	RefreshConsole();
+	SetPos(7, 10);
+	PrintConsole(error + "프로그램을 종료합니다.");
+	WaitforSec(1.5);
+	system("cls");
+	SetPos(0, 0);
+	PrintTitle();
+	WaitforSec(1.5);
+	exit(0);
 }

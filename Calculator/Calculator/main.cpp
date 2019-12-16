@@ -8,7 +8,8 @@ int main(void)
 	Initialize();
 	Utility* UTL = new Utility();
 	Arithmetic* ARI = NULL;
-	Matrix* MAT = NULL;
+	Matrix* Matrix_A = NULL;
+	Matrix* Matrix_B = NULL;
 	Base_N* BN = NULL;
 
 	UTL->PrintTitle();
@@ -21,11 +22,17 @@ int main(void)
 		UTL->PrintGuide();
 		UTL->SetPos(5, 5);
 		UTL->PrintModes("BASIC");
-		int mode = UTL->SelectMode("BASIC");
-		switch (mode)
+		switch (UTL->SelectMode("BASIC"))
 		{
-		case CALCULATION:
+		case ARITHMETIC:
+			UTL->RefreshConsole();
 			ARI = new Arithmetic();
+			ARI->SetInfixExpression();
+			ARI->ConvertExpression();
+			ARI->Calculate();
+			UTL->SetPos(10, 10);
+			UTL->PrintConsole(ARI->GetResult());
+			UTL->WaitforSec(1.5);
 			break;
 		case MATRIX:
 			/*ptc_m->PrintGuide(18, 2);
