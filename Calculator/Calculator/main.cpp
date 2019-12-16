@@ -2,14 +2,10 @@
 
 int main(void)
 {
-	Calc_Util* ptc_u = new Calc_Util;
-	Calc_Basic* ptc_b = NULL;
-	Calc_Matrix* ptc_m = new Calc_Matrix;
-	Calc_Matrix* Matrix_A = NULL;
-	Calc_Matrix* Matrix_B = NULL;
-
 	Initialize();
-	ptc_u->PrintTitle(3);
+	Calculator* CAL = new Calculator;
+	Utility* UTL = new Utility;
+	UTL->PrintTitle(1.5);
 
 	while (1)
 	{
@@ -44,7 +40,7 @@ int main(void)
 					cin >> r_temp;
 					ptc_m->PrintAt(5, 6, "열 수를 선택하세요.(1~3)");
 					cin >> c_temp;
-					Matrix_A = new Calc_Matrix(r_temp, c_temp);
+					Matrix_A = new Matrix(r_temp, c_temp);
 					ptc_u->RefreshConsole();
 					ptc_m->PrintAt(5, 6, "각 성분들을 입력하세요. 비워둘 수 없습니다.");
 					for (int r = 0; r < Matrix_A->GetRow(); r++)

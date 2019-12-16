@@ -1,145 +1,94 @@
 #ifndef CALCULATOR
 #define CALCULATOR
-#define _USE_MATH_DEFINES		//to use M_PI(exact pi value)
-#define CONSOLECOLS 60			//콘솔 창의 가로 길이
-#define COMSOLEROWS 20			//콘솔 창의 세로 길이
-
-#define KEY_UP 72
-#define KEY_DOWN 80
-#define KEY_LEFT 75
-#define KEY_RIGHT 77	//define ASCII code for arrow key
-#define SUBMIT 13		//define ASCII code for enter key(\r) -- use enter key to submit
-#define ESC 27			//define ASCII code for ESC key -- use ESC key to cancle
-#define AC '#';
-#define A 65
-#define B 66
-
-#define BASICCALC 1
-#define ADVANCEDCALC 2
-#define MATRIX 3
-#define BASE_N 4
-#define QUIT 0			//define each mode in integer type
-#define RETURN 100		//return value to return to mode select screen
-
-#define DEFINEMATRIX 1000
-#define EDITMATRIX 1001
-#define CALCULATEMATRIX 1002
+#define CONSOLECOLS 70
+#define CONSOLEROWS 30
 
 #include <iostream>
-#include <Windows.h>
-#include <conio.h>	//for using _getch()
+#include <Windows.h>	//to control console & handle cursor
+#include <conio.h>		//to use _getch()
 #include <cstdlib>
-#include <ctime>
-#include <cmath>
-#include <string>
-#include <vector>
-#include <sstream>
-#include <utility>	//for using pair<>
+#include <ctime>		//to use srand((unsigned int)time(NULL));
+#include <cmath>		//to use math features
+#include <string>		//to use C++ style string
+#include <vector>		//to use std::vector
+#include <stack>		//to use std::stack(not sure)
+#include <utility>		//to use pair<int, int>
+#include <sstream>		//to use stringstream;
 
-/*
+//try not to use using namespace std;
 using std::cout;
 using std::cin;
 using std::endl;
 using std::string;
+using std::pair;
 using std::vector;
 using std::stack;
 using std::stringstream;
-using std::ios_base::eof();
-*/
 
-using namespace std;
-class Calc {
+class Calculator
+{
 private:
 protected:
 public:
-	//추상적인 계산기 클래스
+	virtual void PrintGuide(double seconds) = 0;
+	virtual void PrintMode(void);
+	virtual int SelectMode(void);		//declared in virtual to use in Utility, Matrix, probably Base_N too
+	virtual void Calculate(void);
 };
 
-class Calc_Util : public Calc {
+class Utility : public Calculator
+{
 private:
-protected:
-public:
-	void ClearConsole(void);
-	void RefreshConsole(void);	//ClearConsole + PrintLine
-	void PrintTitle(double seconds);
-	void PrintGuide(int xpos, int ypos);
-	void PrintAt(int xpos, int ypos, string contents);
-	void PrintAt(int xpos, int ypos, double db);
-	void PrintLine(int xpos, int ypos, int amount);
-	void PrintMode(void);
-	int ReadKey(void);
-	int SelectMode(void);
-	void Delay(double seconds);
-	void ExitCalc(int xpos, int ypos, double seconds);
-	void ExitCalc(int xpos, int ypos, double seconds, string Error);
-	//화면 입출력을 관리하지만 직접적인 계산은 하지 않는 클래스
-};
-
-class Calc_Basic : public Calc_Util {
-private:
-protected:
-	string InfixExpression;
-	string PostfixExpression;
-	string tempExpression;			//string to save infix expression temporarily -- to divide GetInfixExp() and SetInfixExp()
-	const string operators = "(+-*/)";		//available opeartors -- parenthes, plus, minus, multiple, divide
 	double result;
 public:
-
-	void PrintGuide(int xpos, int ypos);
-	double GetResult(void) const { return result; };
-	void SetInfixExp(int xpos, int ypos);
-	void ConvertToPostfix(void);
-	void Calculate(void);
-	void PrintResult(int xpos, int ypos);
-	//기본적인 계산을 수행하는 클래스
-};
-
-class Calc_Advanced : public Calc_Basic {
-private:
-protected:
-	const float PI = M_PI;
-	const float E = M_E;
-public:
+	//only Utility method
+	void RefreshConsole(void);			//erase everything in console and print two lines(basic UI)
+	void WaitforSec(double seconds);	//wait console in seconds
+	void PrintTitle(double seconds);	//print title "CALCULATOR"
+	int InstantReadKey(void);			//read keyboard input without buffer(instantly input value)
+	template <typename contents> void PrintAt(int xpos, int ypos, contents);
 	
-	/*
-	1. 삼각함수, 쌍곡선함수, 역삼각함수의 기본 연산
-	2. 지수, 로그, 제곱근 계산
-	3. 자주 쓰이는 상수(e, pi 등) 바로 계산 식에 포함 가능
-	*/
+	virtual void PrintGuide(int xpos, int ypos);	//basic guide : explain program
+	virtual void PrintMode(void);	//basic mode : calculation || matrix || Base_N
+	void ExitCalc(void);			//show "terminated" string and terminate whole program
 };
 
-class Calc_Matrix : public Calc_Advanced {
+class Calculation : public Calculator
+{
 private:
-protected:
-	int rows;	//행의 수
-	int cols;	//열의 수
-	double** ptd;
+	string InfixExpression;
+	string PostfixExpression;
+	const string operators = "(+-*/)";		//available opeartor string set
+	double result;
 public:
-	Calc_Matrix() : rows(0), cols(0) {};
-	Calc_Matrix(int row, int col);
-	Calc_Matrix(const Calc_Matrix& Calc_Mat);
-	~Calc_Matrix();
+	virtual void PrintGuide(void);
+	void SetInfixExpression(void);
+	void ConvertExpression(void);
+	void PrintResult(void);
+};
 
-	void PrintGuide(int xpos, int ypos);
-	void PrintMode(void);
-	int SelectMode(void);
-
-	void SetRow(int row);
-	void SetCol(int col);
-	int GetRow(void) const { return rows; }
-	int GetCol(void) const { return cols; }
-	double** GetP(void) const { return ptd; }
+class Matrix : public Calculator
+{
+private:
+	int rows;
+	int cols;
+	double** pptd;		//pointer to pointer to double type -- to allocate 2d array dynamically
+public:
+	void PrintGuide(void);
+	virtual int SelectMode(void);
 	void DefineMatrix(void);
 	void EditMatrix(void);
-	void ShowMatrix(void);
 	void Calculate(void);
-	//double operator+();
-	//double operator-();
-	//double operator*();
-	//행렬 연산을 수행하는 클래스
+	double** GetPointer(void);
+};
+
+class Base_N : public Calculator
+{
+private:
+public:
+
 };
 
 void Initialize(void);
-void MoveCursor(int x, int y);
-
+void MoveCursor(int xpos, int ypos);
 #endif
