@@ -7,7 +7,6 @@ private:
 	int cols;
 	double** pptd;		//pointer to pointer to double type -- to allocate 2d array dynamically
 public:
-	void PrintGuide(void);
 	virtual int SelectMode(void);
 	void DefineMatrix(void);
 	void EditMatrix(void);

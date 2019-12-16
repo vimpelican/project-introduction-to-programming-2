@@ -1,5 +1,14 @@
 #include "utility.h"
 
+Utility::Utility()
+{
+
+}
+Utility::Utility(int x, int y)
+{
+	xPos = x;
+	yPos = y;
+}
 void Utility::RefreshConsole(void)
 {
 	system("cls");	//erase everythinig in console
@@ -62,13 +71,86 @@ template <typename contents> void Utility::PrintAt(int xpos, int ypos, contents)
 void Utility::PrintGuide(int xpos, int ypos)
 {
 	//not using virtual in here! "virtual" void Utility::PrintGuide(void)
-	PrintAt(5, 5, "이 프로그램은 공학용 계산기를 구현한 것입니다.");
+	PrintAt(xpos, ypos, "방향키로 위/아래를 이동하고, 엔터 키로 선택하세요.");
 }
-void Utility::PrintMode(void)
+void Utility::PrintMode(int xpos, int ypos, string mode)
 {
-	PrintAt(5, 6, "1. Basic Calculation (기본 계산)");
-	PrintAt(5, 8, "2. Advanced Calculation (고급 계산:삼각/지수/로그함수 포함)");
-	PrintAt(5, 10, "3. Matrix (행렬 계산)");
-	PrintAt(5, 12, "4. Base-N (진수 변환)");
-	PrintAt(5, 14, "5. Quit (프로그램 종료)");
+	if (mode == "BASIC")
+	{
+		PrintAt(xpos, ypos, "1. 기본 계산(수식 입력)");
+		PrintAt(xpos, ypos + 2, "2. Matrix (행렬 계산)");
+		PrintAt(xpos, ypos + 4, "3. Base-N (진수 변환)");
+		PrintAt(xpos, ypos + 6, "4. Quit (프로그램 종료)");
+	}
+	else if (mode == "MATRIX")
+	{
+		PrintAt(xpos, ypos, "1. 행렬 정의");
+		PrintAt(xpos, ypos + 2, "2. 행렬 수정");
+		PrintAt(xpos, ypos + 4, "3. 행렬 연산");
+	}
+	else if (mode == "MATRIX_CALCULATION")
+	{
+		PrintAt(xpos, ypos, "1. 행렬 덧셈");
+		PrintAt(xpos, ypos + 2, "2. 스칼라 곱");
+		PrintAt(xpos, ypos + 4, "3. 전치");
+		PrintAt(xpos, ypos + 6, "4. 행렬 곱셈");
+		PrintAt(xpos, ypos + 8, "5. 역행렬");
+	}
+}
+int Utility::SelectMode(void)
+{
+	int x = 7, y = 6;
+	int x_end, y_end;
+	while (1)
+	{
+		int n = InstantReadKey();
+		switch (n) {
+		case KEY_UP:
+		{
+			if (y > 6)
+			{
+				MoveCursor(x - 3, y);
+				cout << " ";
+				MoveCursor(x - 3, y -= 2);
+				cout << ">";
+			}
+		}
+		break;
+		case KEY_DOWN:
+		{
+			if (y < 14)
+			{
+				MoveCursor(x - 3, y);
+				cout << " ";
+				MoveCursor(x - 3, y += 2);
+				cout << ">";
+			}
+		}
+		break;
+		case SUBMIT:
+		{
+			if (y == 6)
+				return BASICCALC;
+			else if (y == 8)
+				return ADVANCEDCALC;
+			else if (y == 10)
+				return MATRIX;
+			else if (y == 12)
+				return BASE_N;
+			else if (y == 14)
+				return QUIT;
+		}
+		break;
+		}
+	}
+}
+void Utility::ExitCalc(int xpos, int ypos)
+{
+	PrintAt(xpos, ypos, "프로그램을 종료합니다.");
+	PrintTitle(1.5);
+	exit(0);
+}
+void Utility::ExitCalc(int xpos, int ypos, string error)
+{
+	PrintAt(xpos, ypos, error);
 }

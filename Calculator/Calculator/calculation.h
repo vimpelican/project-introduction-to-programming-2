@@ -8,8 +8,8 @@ private:
 	const string operators = "(+-*/)";		//available opeartor string set
 	double result;
 public:
-	virtual void PrintGuide(void);
+	Calculation() : result(0.0) {};
 	void SetInfixExpression(void);
 	void ConvertExpression(void);
-	void PrintResult(void);
+	void Calculate(void);
 };

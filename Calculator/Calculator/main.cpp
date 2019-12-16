@@ -6,24 +6,16 @@
 int main(void)
 {
 	Initialize();
-	Calculator* CAL = new Calculator;
-	Utility* UTL = new Utility;
+	Utility* UTL = new Utility();
 	UTL->PrintTitle(1.5);
 
 	while (1)
 	{
-		ptc_u->PrintMode();
-		int mode = ptc_u->SelectMode();
+		UTL->PrintMode();
+		int mode = UTL->SelectMode();
 		switch (mode)
 		{
 		case BASICCALC:
-			ptc_b = new Calc_Basic();
-			ptc_b->PrintGuide(18, 2);
-			ptc_b->SetInfixExp(3, 6);
-			ptc_b->ConvertToPostfix();
-			ptc_b->Calculate();
-			ptc_b->PrintResult(3, 10);
-			ptc_b->Delay(1.2);
 			break;
 		case ADVANCEDCALC:
 			break;
