@@ -14,11 +14,10 @@
 #define A 65
 #define B 66
 
-#define BASICCALC 1
-#define ADVANCEDCALC 2
-#define MATRIX 3
-#define BASE_N 4
-#define QUIT 0			//define each mode in integer type
+#define CALCULATION 1
+#define MATRIX 2
+#define BASE_N 3
+#define QUIT 4			//define each mode in integer type
 #define RETURN 100		//return value to return to mode select screen
 
 #define DEFINEMATRIX 1000
