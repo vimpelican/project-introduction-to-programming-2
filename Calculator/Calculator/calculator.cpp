@@ -20,7 +20,6 @@ void MoveCursor(int x, int y)
 	pos.Y = y;
 	SetConsoleCursorPosition(consoleHandle, pos);
 }
-
 void Calc_Util::ClearConsole(void)
 {
 	system("cls");
