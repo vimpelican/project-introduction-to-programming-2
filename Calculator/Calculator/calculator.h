@@ -113,7 +113,7 @@ private:
 protected:
 	int rows;	//행의 수
 	int cols;	//열의 수
-
+	double** ptd;
 public:
 	Calc_Matrix() : rows(0), cols(0) {};
 	Calc_Matrix(int row, int col);
@@ -126,10 +126,12 @@ public:
 
 	void SetRow(int row);
 	void SetCol(int col);
+	int GetRow(void) const { return rows; }
+	int GetCol(void) const { return cols; }
+	double** GetP(void) const { return ptd; }
 	void DefineMatrix(void);
 	void EditMatrix(void);
 	void ShowMatrix(void);
-	void GetMatrix(void);
 	void Calculate(void);
 	//double operator+();
 	//double operator-();

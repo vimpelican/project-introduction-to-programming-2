@@ -337,7 +337,14 @@ Calc_Matrix::Calc_Matrix(int row, int col)
 {
 	rows = row;
 	cols = col;
+	ptd = new double*[cols];	//dynamically allocate 2d array
+	for (int i = 0; i < cols; i++)
+	{
+		ptd[i] = new double[rows];
+		memset(ptd[i], 0, sizeof(double)*(cols));	//initialize memory space to 0
+	}
 }
+
 Calc_Matrix::~Calc_Matrix()
 {
 
@@ -378,7 +385,7 @@ int Calc_Matrix::SelectMode(void)
 		break;
 		case KEY_DOWN:
 		{
-			if (y < 14)
+			if (y < 10)
 			{
 				MoveCursor(x - 3, y);
 				cout << " ";
@@ -484,10 +491,6 @@ void Calc_Matrix::ShowMatrix(void)
 	Delay(5);
 	RefreshConsole();
 	
-}
-void Calc_Matrix::GetMatrix(void)
-{
-
 }
 void Calc_Matrix::Calculate(void)
 {
