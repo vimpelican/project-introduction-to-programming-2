@@ -113,15 +113,19 @@ private:
 protected:
 	int rows;	//행의 수
 	int cols;	//열의 수
+
 public:
-	Calc_Matrix();
+	Calc_Matrix() : rows(0), cols(0) {};
+	Calc_Matrix(int row, int col);
+	Calc_Matrix(const Calc_Matrix& Calc_Mat);
 	~Calc_Matrix();
 
 	void PrintGuide(int xpos, int ypos);
 	void PrintMode(void);
 	int SelectMode(void);
 
-	void SetRC(void);
+	void SetRow(int row);
+	void SetCol(int col);
 	void DefineMatrix(void);
 	void EditMatrix(void);
 	void ShowMatrix(void);

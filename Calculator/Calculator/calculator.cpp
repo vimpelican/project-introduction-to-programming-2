@@ -327,9 +327,16 @@ void Calc_Basic::PrintResult(int xpos, int ypos)
 	PrintAt(xpos + 12, ypos, result);
 }
 
-Calc_Matrix::Calc_Matrix()
+Calc_Matrix::Calc_Matrix(const Calc_Matrix& Calc_Mat)
 {
+	rows = Calc_Mat.rows;
+	cols = Calc_Mat.cols;
+}
 
+Calc_Matrix::Calc_Matrix(int row, int col)
+{
+	rows = row;
+	cols = col;
 }
 Calc_Matrix::~Calc_Matrix()
 {
@@ -393,9 +400,13 @@ int Calc_Matrix::SelectMode(void)
 		}
 	}
 }
-void Calc_Matrix::SetRC(void)
+void Calc_Matrix::SetRow(int row)
 {
-
+	rows = row;
+}
+void Calc_Matrix::SetCol(int col)
+{
+	cols = col;
 }
 void Calc_Matrix::DefineMatrix(void)
 {

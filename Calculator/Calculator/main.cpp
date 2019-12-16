@@ -3,8 +3,10 @@
 int main(void)
 {
 	Calc_Util* ptc_u = new Calc_Util;
-	Calc_Basic* ptc_b = new Calc_Basic;
+	Calc_Basic* ptc_b = NULL;
 	Calc_Matrix* ptc_m = new Calc_Matrix;
+	Calc_Matrix* Matrix_A = NULL;
+	Calc_Matrix* Matrix_B = NULL;
 
 	Initialize();
 	ptc_u->PrintTitle(3);
@@ -16,6 +18,7 @@ int main(void)
 		switch (mode)
 		{
 		case BASICCALC:
+			ptc_b = new Calc_Basic();
 			ptc_b->PrintGuide(18, 2);
 			ptc_b->SetInfixExp(3, 6);
 			ptc_b->ConvertToPostfix();
@@ -33,17 +36,28 @@ int main(void)
 			if (ptc_m->SelectMode() == DEFINEMATRIX)
 			{
 				ptc_m->PrintAt(5, 5, "A, B 중 정의할 행렬을 키보드로 입력해 주세요.");
+				ptc_u->RefreshConsole();
 				if (ptc_m->ReadKey() == A)
-					Calc_Matrix* Matrix_A = new Calc_Matrix;
+				{
+					int r_temp, c_temp;
+					ptc_m->PrintAt(5, 5, "행 수를 선택하세요.(1~3)");
+					cin >> r_temp;
+					ptc_m->PrintAt(5, 6, "열 수를 선택하세요.(1~3)");
+					cin >> c_temp;
+					Matrix_A = new Calc_Matrix(r_temp, c_temp);
+				}
 				else if (ptc_m->ReadKey() == B)
-					Calc_Matrix* Matrix_B = new Calc_Matrix;
+				{
+
+				}
 			}
 			else if (ptc_m->SelectMode() == EDITMATRIX)
 			{
-
+				ptc_m->PrintAt(5, 5, "A, B 중 수정할 행렬을 키보드로 입력해 주세요.");
 			}
 			else if (ptc_m->SelectMode() == CALCULATEMATRIX)
 			{
+				ptc_u->RefreshConsole();
 
 			}
 			break;
