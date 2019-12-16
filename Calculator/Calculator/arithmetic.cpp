@@ -1,13 +1,14 @@
-#include "calculation.h"
-Calculation::Calculation()
+#include "arithmetic.h"
+
+Arithmetic::Arithmetic()
 {
 	
 }
-void Calculation::SetInfixExpression(void)
+void Arithmetic::SetInfixExpression(void)
 {
 	cin >> InfixExpression;
 }
-void Calculation::ConvertExpression(void)
+void Arithmetic::ConvertExpression(void)
 {
 	string* ptrs = new string;
 	*ptrs = InfixExpression;
@@ -85,7 +86,7 @@ void Calculation::ConvertExpression(void)
 	PostfixExpression = *ptrs;
 	delete ptrs;
 }
-void Calculation::Calculate(void)
+void Arithmetic::Calculate(void)
 {
 	string* ptrs = new string;
 	*ptrs = PostfixExpression;
