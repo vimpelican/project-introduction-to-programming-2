@@ -116,7 +116,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="base_n.cpp" />
-    <ClCompile Include="calculation.cpp" />
+    <ClCompile Include="arithmetic.cpp" />
     <ClCompile Include="calculator.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="matrix.cpp" />
@@ -124,7 +124,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="base_n.h" />
-    <ClInclude Include="calculation.h" />
+    <ClInclude Include="arithmetic.h" />
     <ClInclude Include="calculator.h" />
     <ClInclude Include="matrix.h" />
     <ClInclude Include="utility.h" />

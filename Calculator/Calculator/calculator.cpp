@@ -20,7 +20,19 @@ void MoveCursor(int xpos, int ypos)
 	SetConsoleCursorPosition(consoleHandle, pos);
 }
 
-void Calculator::PrintMode(void)
+void Calculator::PrintGuide(double seconds)
+{
+
+}
+void Calculator::PrintModes(void)
+{
+
+}
+int Calculator::SelectMode(void)
+{
+	return test;
+}
+void Calculator::Calculate(void)
 {
 
 }

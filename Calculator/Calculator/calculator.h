@@ -1,8 +1,8 @@
 #ifndef CALCULATOR
 #define CALCULATOR
 #define _USE_MATH_DEFINES		//to use M_PI(exact pi value)
-#define CONSOLECOLS 60			//콘솔 창의 가로 길이
-#define COMSOLEROWS 20			//콘솔 창의 세로 길이
+#define CONSOLECOLS 70			//콘솔 창의 가로 길이
+#define CONSOLEROWS 30			//콘솔 창의 세로 길이
 
 #define KEY_UP 72
 #define KEY_DOWN 80
@@ -49,10 +49,12 @@ using std::stringstream;
 class Calculator
 {
 private:
+	int test;
 protected:
 public:
+	Calculator() : test(1) {}
 	virtual void PrintGuide(double seconds);
-	virtual void PrintMode(void);
+	virtual void PrintModes(void);
 	virtual int SelectMode(void);		//declared in virtual to use in Utility, Matrix, probably Base_N too
 	virtual void Calculate(void);
 };

@@ -1,9 +1,5 @@
 #include "arithmetic.h"
 
-Arithmetic::Arithmetic()
-{
-	
-}
 void Arithmetic::SetInfixExpression(void)
 {
 	cin >> InfixExpression;
@@ -69,22 +65,21 @@ void Arithmetic::ConvertExpression(void)
 			break;
 		default:
 			//unknown error
-			cout << "예상치 못한 에러가 발생했습니다. 프로그램을 종료합니다." << endl;
+			Post_temp += " ";
 		}
-		Post_temp += " ";
-	}
 
-	size_t stacksize = stack.size();
-	for (size_t i = 0; i < stacksize; ++i)
-	{
-		Post_temp += " ";
-		Post_temp += stack.back();
-		stack.pop_back();
-	}
+		size_t stacksize = stack.size();
+		for (size_t i = 0; i < stacksize; ++i)
+		{
+			Post_temp += " ";
+			Post_temp += stack.back();
+			stack.pop_back();
+		}
 
-	*ptrs = Post_temp;
-	PostfixExpression = *ptrs;
-	delete ptrs;
+		*ptrs = Post_temp;
+		PostfixExpression = *ptrs;
+		delete ptrs;
+	}
 }
 void Arithmetic::Calculate(void)
 {

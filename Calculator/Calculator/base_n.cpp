@@ -41,7 +41,7 @@ void ChangeBinary(int decimal)  // 10진수를 2진수로 바꿔주는 함수
 
 }
 
-
+/*
 
 int main()
 {
@@ -59,3 +59,5 @@ int main()
 	}
 	numSystem = 0;
 };
+
+*/

@@ -30,7 +30,7 @@
     <ClCompile Include="base_n.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="calculation.cpp">
+    <ClCompile Include="arithmetic.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -44,10 +44,10 @@
     <ClInclude Include="utility.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="calculation.h">
+    <ClInclude Include="base_n.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="base_n.h">
+    <ClInclude Include="arithmetic.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

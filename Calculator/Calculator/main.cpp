@@ -7,20 +7,30 @@ int main(void)
 {
 	Initialize();
 	Utility* UTL = new Utility();
-	UTL->PrintTitle(1.5);
+	Arithmetic* ARI = NULL;
+	Matrix* MAT = NULL;
+	Base_N* BN = NULL;
+
+	UTL->PrintTitle();
+	UTL->WaitforSec(1.5);
 
 	while (1)
 	{
-		//UTL->PrintMode();
-		int mode;
+		UTL->RefreshConsole();
+		UTL->SetPos(5, 1);
+		UTL->PrintGuide();
+		UTL->SetPos(5, 5);
+		UTL->PrintModes("BASIC");
+		int mode = UTL->SelectMode("BASIC");
 		switch (mode)
 		{
 		case CALCULATION:
+			ARI = new Arithmetic();
 			break;
 		case MATRIX:
 			/*ptc_m->PrintGuide(18, 2);
-ptc_m->PrintMode();
-if (ptc_m->SelectMode() == DEFINEMATRIX)
+			ptc_m->PrintModes();
+			if (ptc_m->SelectMode() == DEFINEMATRIX)
 {
 	ptc_m->PrintAt(5, 5, "A, B 중 정의할 행렬을 키보드로 입력해 주세요.");
 	if (ptc_m->ReadKey() == A)
@@ -72,6 +82,7 @@ else//왜 엔터를 두번 눌러야 여기로 들어가지?
 		case BASE_N:
 			break;
 		case QUIT:
+			UTL->ExitCalc();
 			return 0;
 		default:
 			break;
