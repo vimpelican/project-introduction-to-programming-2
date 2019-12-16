@@ -1,7 +1,29 @@
 #ifndef CALCULATOR
 #define CALCULATOR
-#define CONSOLECOLS 70
-#define CONSOLEROWS 30
+#define _USE_MATH_DEFINES		//to use M_PI(exact pi value)
+#define CONSOLECOLS 60			//콘솔 창의 가로 길이
+#define COMSOLEROWS 20			//콘솔 창의 세로 길이
+
+#define KEY_UP 72
+#define KEY_DOWN 80
+#define KEY_LEFT 75
+#define KEY_RIGHT 77	//define ASCII code for arrow key
+#define SUBMIT 13		//define ASCII code for enter key(\r) -- use enter key to submit
+#define ESC 27			//define ASCII code for ESC key -- use ESC key to cancle
+#define AC '#';
+#define A 65
+#define B 66
+
+#define BASICCALC 1
+#define ADVANCEDCALC 2
+#define MATRIX 3
+#define BASE_N 4
+#define QUIT 0			//define each mode in integer type
+#define RETURN 100		//return value to return to mode select screen
+
+#define DEFINEMATRIX 1000
+#define EDITMATRIX 1001
+#define CALCULATEMATRIX 1002
 
 #include <iostream>
 #include <Windows.h>	//to control console & handle cursor
@@ -30,65 +52,11 @@ class Calculator
 private:
 protected:
 public:
-	virtual void PrintGuide(double seconds) = 0;
+	virtual void PrintGuide(double seconds);
 	virtual void PrintMode(void);
 	virtual int SelectMode(void);		//declared in virtual to use in Utility, Matrix, probably Base_N too
 	virtual void Calculate(void);
 };
-
-class Utility : public Calculator
-{
-private:
-	double result;
-public:
-	//only Utility method
-	void RefreshConsole(void);			//erase everything in console and print two lines(basic UI)
-	void WaitforSec(double seconds);	//wait console in seconds
-	void PrintTitle(double seconds);	//print title "CALCULATOR"
-	int InstantReadKey(void);			//read keyboard input without buffer(instantly input value)
-	template <typename contents> void PrintAt(int xpos, int ypos, contents);
-	
-	virtual void PrintGuide(int xpos, int ypos);	//basic guide : explain program
-	virtual void PrintMode(void);	//basic mode : calculation || matrix || Base_N
-	void ExitCalc(void);			//show "terminated" string and terminate whole program
-};
-
-class Calculation : public Calculator
-{
-private:
-	string InfixExpression;
-	string PostfixExpression;
-	const string operators = "(+-*/)";		//available opeartor string set
-	double result;
-public:
-	virtual void PrintGuide(void);
-	void SetInfixExpression(void);
-	void ConvertExpression(void);
-	void PrintResult(void);
-};
-
-class Matrix : public Calculator
-{
-private:
-	int rows;
-	int cols;
-	double** pptd;		//pointer to pointer to double type -- to allocate 2d array dynamically
-public:
-	void PrintGuide(void);
-	virtual int SelectMode(void);
-	void DefineMatrix(void);
-	void EditMatrix(void);
-	void Calculate(void);
-	double** GetPointer(void);
-};
-
-class Base_N : public Calculator
-{
-private:
-public:
-
-};
-
 void Initialize(void);
 void MoveCursor(int xpos, int ypos);
 #endif

@@ -1,4 +1,7 @@
-#include "calculator.h"
+#include "calculation.h"
+#include "utility.h"
+#include "matrix.h"
+#include "base_n.h"
 
 int main(void)
 {
