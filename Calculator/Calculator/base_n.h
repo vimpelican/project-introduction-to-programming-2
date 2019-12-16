@@ -3,6 +3,10 @@
 class Base_N : public Calculator
 {
 private:
-public:
 
+public:
+	void ChangeDecimal(int binary)
+	{
+
+	}
 };
