@@ -1,4 +1,4 @@
-#include "calculation.h"
+#include "arithmetic.h"
 #include "utility.h"
 #include "matrix.h"
 #include "base_n.h"

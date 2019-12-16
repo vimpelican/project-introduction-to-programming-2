@@ -44,6 +44,7 @@ public:
 
 };
 
+/*
 int main()
 {
 	int numSystem;
@@ -60,3 +61,4 @@ int main()
 	}
 	numSystem = 0;
 };
+*/
