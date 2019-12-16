@@ -11,7 +11,7 @@ void Initialize(void)
 	ConsoleCursor.dwSize = 1;
 	SetConsoleCursorInfo(consoleHandle, &ConsoleCursor);
 }
-
+/*
 void MoveCursor(int x, int y)
 {
 	HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -495,3 +495,5 @@ void Calc_Matrix::Calculate(void)
 {
 
 }
+
+*/

@@ -34,6 +34,7 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include <utility>	//for using pair<>
 
 /*
 using std::cout;
@@ -47,7 +48,6 @@ using std::ios_base::eof();
 */
 
 using namespace std;
-
 class Calc {
 private:
 protected:
