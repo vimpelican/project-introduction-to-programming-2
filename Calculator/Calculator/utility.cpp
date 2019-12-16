@@ -15,8 +15,10 @@ void Utility::RefreshConsole(void)
 	system("cls");	//erase everythinig in console
 	for (int i = 0; i < CONSOLECOLS; i++)
 	{
-		PrintConsole(0, 1, '=');		//print upper line
-		PrintConsole(0, 18, '=');	//print lower line
+		SetPos(0, 1);
+		PrintConsole('=');		//print upper line
+		SetPos(0, 18);
+		PrintConsole('=');	//print lower line
 	}
 }
 void Utility::WaitforSec(double seconds)

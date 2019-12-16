@@ -16,7 +16,6 @@ public:
 	int InstantReadKey(void);			//read keyboard input without buffer(instantly input value)
 	template <typename contents> void PrintConsole(contents);
 
-
 	virtual void PrintGuide(void);	//basic guide : explain program
 	virtual void PrintMode(string setting);	//basic mode : calculation || matrix || Base_N
 	virtual int SelectMode(string setting);
