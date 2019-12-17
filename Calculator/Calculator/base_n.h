@@ -9,8 +9,15 @@ private:
 	int decimal;
 
 public:
-	void ChangeDecimal(int binary) {} //識情
-	void ChangeBinary(int decimal) {} // 識情
+	void ChangeDecimal(int binary);  //識情
+	void ChangeBinary(int decimal); // 識情
+	int getBinary() {
+		return binary;
+	}
+	int getDecimal() {
+		return decimal;
+	}
+
 };
 
 /*
