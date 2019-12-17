@@ -7,9 +7,9 @@ private:
 	string PostfixExpression;
 	const string operators = "(+-*/)";		//available opeartors(arithmetic) string set
 	double result;
-	stack<char> s2;				//stack which holds opeartors
-	stack<double> s1;	//stack which holds values to calculate result
-	char buffer[100];				//work as a buffer(temporary value)
+	stack<char> stack_operator;		//stack which holds opeartors
+	stack<double> stack_value;		//stack which holds values to calculate result
+	stack<int> stack_temp;			//stack which holds temporary value(which have to be calulated)
 public:
 	Arithmetic();
 	void SetInfixExpression(void);	//read user input(in infix notation) and save to InfixExpression
