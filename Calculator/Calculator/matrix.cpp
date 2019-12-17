@@ -2,19 +2,16 @@
 
 Matrix::Matrix()
 {
-	rows = cols = NULL;
-	pptd = NULL;
+	rows = 0;
+	cols = 0;
 }
-Matrix::Matrix(int r, int c)
+Matrix::Matrix(int row, int col)
 {
-	rows = r;
-	cols = c;
-
-	for (int i = 0; i < cols; i++)
-	{
-		pptd[i] = new double[rows];
-		memset(pptd[i], 0, sizeof(double)*(cols));	//initialize memory space to 0
-	}
+	rows = row;
+	cols = col;
+	pptd = new double*[rows];
+	for (int i = 0; i < rows; i++)
+		pptd[i] = new double[cols];
 }
 Matrix::~Matrix()
 {
