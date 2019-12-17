@@ -152,7 +152,7 @@ void Utility::PrintModes(string setting)
 		PrintConsole("3. Calculate Matrix (행렬 연산)");
 		SetPos(xPos, yPos - 8);
 	}
-	else if (setting == "DEFINEMATRIX")
+	else if (setting == "SELECTMATRIX")
 	{
 		PrintConsole("1. A");
 		SetPos(xPos, yPos + 4);
@@ -269,7 +269,7 @@ int Utility::SelectMode(string setting)
 			}
 		}
 	}
-	else if (setting == "DEFINEMATRIX")
+	else if (setting == "SELECTMATRIX")
 	{
 		int y_bottom = yPos;
 		int y_top = yPos + 4;
@@ -314,9 +314,8 @@ int Utility::SelectMode(string setting)
 	}
 	else if (setting == "CALCULATEMATRIX")
 	{
-
 		int y_bottom = yPos;
-		int y_top = yPos + 8;
+		int y_top = yPos + 12;
 		MoveCursor(xPos - 3, yPos);
 		cout << ">";
 		while (1)
@@ -329,7 +328,7 @@ int Utility::SelectMode(string setting)
 				{
 					MoveCursor(x_temp - 3, y_temp);
 					cout << " ";
-					MoveCursor(x_temp - 3, y_temp -= 2);
+					MoveCursor(x_temp - 3, y_temp -= 3);
 					cout << ">";
 				}
 			}
@@ -340,22 +339,22 @@ int Utility::SelectMode(string setting)
 				{
 					MoveCursor(x_temp - 3, y_temp);
 					cout << " ";
-					MoveCursor(x_temp - 3, y_temp += 2);
+					MoveCursor(x_temp - 3, y_temp += 3);
 					cout << ">";
 				}
 			}
 			break;
 			case SUBMIT:
 			{
-				if (y_temp == 6)
+				if (y_temp == yPos)
 					return ADDMATRIX;
-				else if (y_temp == 8)
+				else if (y_temp == yPos + 3)
 					return SCALAPRODUCT;
-				else if (y_temp == 10)
+				else if (y_temp == yPos + 6)
 					return TRANSPOSE;
-				else if (y_temp == 12)
+				else if (y_temp == yPos + 9)
 					return MATRIXPRODUCT;
-				else if (y_temp == 14)
+				else if (y_temp == yPos + 12)
 					return INVERSE;
 			}
 			break;
