@@ -38,7 +38,15 @@ void Matrix::Calculate(string mode)
 	}
 	else if (mode == "SCALARPRODUCT")
 	{
-
+		for (int r = 0; r < rows; r++)
+		{
+			for (int c = 0; c < cols; c++)
+			{
+				MoveCursor(8+r, 8+c);
+				cout << (scala) * (pptd[r][c]);
+			}
+			cout << endl;
+		}
 	}
 	else if (mode == "TRANSPOSE")
 	{
@@ -46,8 +54,10 @@ void Matrix::Calculate(string mode)
 		{
 			for (int c = 0; c < cols; c++)
 			{
-				cin >> pptd[c][r];	//change rows and cols
+				MoveCursor(8 + r, 8 + c);
+				cout <<  pptd[c][r] << " ";	//change rows and cols
 			}
+			cout << endl;
 		}
 	}
 	else if (mode == "MATRIXPRODUCT")

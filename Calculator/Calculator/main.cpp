@@ -55,8 +55,8 @@ int main(void)
 				UTL->SetPos(5, 1);
 				UTL->PrintGuide("DEFINEMATRIX");
 				UTL->SetPos(5, 9);
-				UTL->PrintModes("DEFINEMATRIX");
-				if (UTL->SelectMode("DEFINEMATRIX") == A)
+				UTL->PrintModes("SELECTMATRIX");
+				if (UTL->SelectMode("SELECTMATRIX") == A)
 				{
 					int r_temp, c_temp;
 					UTL->RefreshConsole();
@@ -70,7 +70,7 @@ int main(void)
 					Matrix_A = new Matrix(r_temp, c_temp);
 					Matrix_A->DefineMatrix();
 				}
-				else if (UTL->SelectMode("DEFINEMATRIX") == B)
+				else  //unknown error, delete else if(UTL->SelectMode()...). using else -- w
 				{
 					int r_temp, c_temp;
 					UTL->RefreshConsole();
@@ -80,38 +80,82 @@ int main(void)
 					cin >> r_temp;
 					UTL->SetPos(33, 9);
 					cin >> c_temp;
-					UTL->SetPos(5, 13);
-					Matrix_A = new Matrix(r_temp, c_temp);
-					Matrix_A->DefineMatrix();
+					UTL->SetPos(5, 15);
+					Matrix_B = new Matrix(r_temp, c_temp);
+					Matrix_B->DefineMatrix();
 				}
 				UTL->SetPos(5, 17);
 				UTL->PrintConsole("성공적으로 행렬을 정의했습니다. 초기 화면으로 돌아갑니다.");
-				UTL->WaitforSec(2);
-			}
-			break;
-		case CALCULATEMATRIX:
-			UTL->RefreshConsole();
-			UTL->SetPos(5, 1);
-			UTL->PrintGuide("CALCULATEMATRIX");
-			UTL->SetPos(5, 9);
-			UTL->PrintModes("CALCULATEMATRIX");
-			switch (UTL->SelectMode("CALCULATEMATRIX"))
-			{
-			case ADDMATRIX:
-				break;
-			case SCALAPRODUCT:
-				break;
-			case TRANSPOSE:
-				
+				//not yet implemented exceptional input
 				UTL->WaitforSec(2);
 				break;
-			case MATRIXPRODUCT:
+			case CALCULATEMATRIX:
+				UTL->RefreshConsole();
+				UTL->SetPos(3, 1);
+				UTL->PrintGuide("CALCULATEMATRIX");
+				UTL->SetPos(5, 9);
+				UTL->PrintModes("CALCULATEMATRIX");
+				switch (UTL->SelectMode("CALCULATEMATRIX"))
+				{
+				case ADDMATRIX:
+					UTL->RefreshConsole();
+					break;
+				case SCALAPRODUCT:
+					UTL->RefreshConsole();
+					UTL->SetPos(5, 9);
+					UTL->PrintModes("SELECTMATRIX");
+					if (UTL->SelectMode("SELECTMATRIX") == A)
+					{
+						UTL->RefreshConsole();
+						UTL->SetPos(5, 5);
+						UTL->PrintConsole("스칼라 값을 입력해 주세요.");
+						int scarlar;
+						cin >> scarlar;
+						Matrix_A->setScarlar(scarlar);
+						UTL->SetPos(8, 8);
+						Matrix_A->Calculate("SCALARPRODUCT");
+						UTL->WaitforSec(3);
+					}
+					else if (UTL->SelectMode("SELECTMATRIX") == B)
+					{
+						UTL->RefreshConsole();
+						UTL->SetPos(5, 5);
+						UTL->PrintConsole("스칼라 값을 입력해 주세요.");
+						int scarlar;
+						cin >> scarlar;
+						Matrix_B->setScarlar(scarlar);
+						UTL->SetPos(8, 8);
+						Matrix_B->Calculate("SCALARPRODUCT");
+						UTL->WaitforSec(3);
+					}
+					break;
+				case TRANSPOSE:
+					UTL->RefreshConsole();
+					UTL->SetPos(5, 9);
+					UTL->PrintModes("SELECTMATRIX");
+					if (UTL->SelectMode("SELECTMATRIX") == A)
+					{
+						UTL->SetPos(8, 8);
+						Matrix_A->Calculate("TRANSPOSE");
+						UTL->WaitforSec(3);
+					}
+					else if (UTL->SelectMode("SELECTMATRIX") == B)
+					{
+						UTL->SetPos(8, 8);
+						Matrix_B->Calculate("TRANSPOSE");
+						UTL->WaitforSec(3);
+					}
+					break;
+				case MATRIXPRODUCT:
+					UTL->RefreshConsole();
+					break;
+				case INVERSE:
+					UTL->RefreshConsole();
+					break;
+				}
 				break;
-			case INVERSE:
 				break;
 			}
-			break;
-		break;
 		}
 		case BASE_N:
 			BN = new Base_N;
@@ -124,6 +168,6 @@ int main(void)
 		}
 	}
 	//Unknown error -- in normal input, cannot reach this point
-	//ptc_u->ExitCalc(5, 5, 1.4, "에러 : 도달할 수 없는 main() 함수의 끝에 도달했습니다.");
+	//ExitCalc(5, 5, 1.4, "에러 : 도달할 수 없는 main() 함수의 끝에 도달했습니다.");
 	return 0;
 }
