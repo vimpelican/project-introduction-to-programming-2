@@ -161,16 +161,15 @@ void Utility::PrintModes(string setting)
 	}
 	else if (setting == "CALCULATEMATRIX")
 	{
-		SetPos(xPos, yPos);
-		PrintConsole("1. Çà·Ä µ¡¼À");
+		PrintConsole("1. Add (Çà·Ä°£ µ¡¼À)");
 		SetPos(xPos, yPos + 3);
-		PrintConsole("2. ½ºÄ®¶ó °ö");
+		PrintConsole("2. Scala product (½ºÄ®¶ó °ö)");
 		SetPos(xPos, yPos + 3);
-		PrintConsole("3. ÀüÄ¡");
+		PrintConsole("3. Transpose (ÀüÄ¡)");
 		SetPos(xPos, yPos + 3);
-		PrintConsole("4. Çà·Ä °ö¼À");
+		PrintConsole("4. Product (Çà·Ä°£ °ö¼À)");
 		SetPos(xPos, yPos + 3);
-		PrintConsole("5. ¿ªÇà·Ä ±¸ÇÏ±â");
+		PrintConsole("5. Inverse (¿ªÇà·Ä °è»ê)");
 		SetPos(xPos, yPos - 12);
 	}
 }
@@ -182,6 +181,8 @@ int Utility::SelectMode(string setting)
 	{
 		int y_bottom = yPos;
 		int y_top = yPos + 12;
+		MoveCursor(xPos-3, yPos);
+		cout << ">";
 		while (1)
 		{
 			int n = InstantReadKey();
@@ -227,6 +228,8 @@ int Utility::SelectMode(string setting)
 	{
 		int y_bottom = yPos;
 		int y_top = yPos + 8;
+		MoveCursor(xPos - 3, yPos);
+		cout << ">";
 		while (1)
 		{
 			int n = InstantReadKey();
@@ -270,6 +273,8 @@ int Utility::SelectMode(string setting)
 	{
 		int y_bottom = yPos;
 		int y_top = yPos + 4;
+		MoveCursor(xPos - 3, yPos);
+		cout << ">";
 		while (1)
 		{
 			int n = InstantReadKey();
@@ -312,6 +317,8 @@ int Utility::SelectMode(string setting)
 
 		int y_bottom = yPos;
 		int y_top = yPos + 8;
+		MoveCursor(xPos - 3, yPos);
+		cout << ">";
 		while (1)
 		{
 			int n = InstantReadKey();
@@ -341,15 +348,15 @@ int Utility::SelectMode(string setting)
 			case SUBMIT:
 			{
 				if (y_temp == 6)
-					return ARITHMETIC;
+					return ADDMATRIX;
 				else if (y_temp == 8)
-					return MATRIX;
+					return SCALAPRODUCT;
 				else if (y_temp == 10)
-					return BASE_N;
+					return TRANSPOSE;
 				else if (y_temp == 12)
-					return QUIT;
+					return MATRIXPRODUCT;
 				else if (y_temp == 14)
-					return QUIT;
+					return INVERSE;
 			}
 			break;
 			}

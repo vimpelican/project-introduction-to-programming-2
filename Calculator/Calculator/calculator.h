@@ -18,11 +18,17 @@
 #define MATRIX 2
 #define BASE_N 3
 #define QUIT 4			//define each mode in integer type
-#define RETURN 100		//return value to return to mode select screen
+#define RETURN 100		//return value to return to mode select screen, not implemented
 
 #define DEFINEMATRIX 1000
 #define EDITMATRIX 1001	//not implemented
 #define CALCULATEMATRIX 1002
+
+#define ADDMATRIX 2001
+#define SCALAPRODUCT 2002
+#define TRANSPOSE 2003
+#define MATRIXPRODUCT 2004
+#define INVERSE 2005
 
 #include <iostream>
 #include <Windows.h>	//to control console & handle cursor

@@ -27,6 +27,7 @@ int main(void)
 			UTL->SetPos(5, 5);
 			UTL->PrintModes("BASIC");
 		case ARITHMETIC:
+		{
 			UTL->RefreshConsole();
 			ARI = new Arithmetic();
 			UTL->SetPos(6, 1);
@@ -39,7 +40,9 @@ int main(void)
 			UTL->PrintConsole(ARI->GetResult());
 			UTL->WaitforSec(3);
 			break;
+		}
 		case MATRIX:
+		{
 			UTL->RefreshConsole();
 			UTL->SetPos(5, 1);
 			UTL->PrintGuide("MATRIX");
@@ -67,19 +70,49 @@ int main(void)
 					Matrix_A = new Matrix(r_temp, c_temp);
 					Matrix_A->DefineMatrix();
 				}
-				else if (UTL->InstantReadKey() == B)
+				else if (UTL->SelectMode("DEFINEMATRIX") == B)
 				{
+					int r_temp, c_temp;
 					UTL->RefreshConsole();
 					UTL->SetPos(5, 1);
 					UTL->PrintGuide("DEFINEMATRIX_B");
+					UTL->SetPos(33, 7);
+					cin >> r_temp;
+					UTL->SetPos(33, 9);
+					cin >> c_temp;
+					UTL->SetPos(5, 13);
+					Matrix_A = new Matrix(r_temp, c_temp);
+					Matrix_A->DefineMatrix();
 				}
+				UTL->SetPos(5, 17);
+				UTL->PrintConsole("성공적으로 행렬을 정의했습니다. 초기 화면으로 돌아갑니다.");
+				UTL->WaitforSec(2);
+			}
+			break;
+		case CALCULATEMATRIX:
+			UTL->RefreshConsole();
+			UTL->SetPos(5, 1);
+			UTL->PrintGuide("CALCULATEMATRIX");
+			UTL->SetPos(5, 9);
+			UTL->PrintModes("CALCULATEMATRIX");
+			switch (UTL->SelectMode("CALCULATEMATRIX"))
+			{
+			case ADDMATRIX:
 				break;
-			case CALCULATEMATRIX:
-				UTL->SetPos(5, 1);
-				UTL->PrintGuide("CALCULATEMATRIX");
+			case SCALAPRODUCT:
+				break;
+			case TRANSPOSE:
+				
+				UTL->WaitforSec(2);
+				break;
+			case MATRIXPRODUCT:
+				break;
+			case INVERSE:
 				break;
 			}
 			break;
+		break;
+		}
 		case BASE_N:
 			BN = new Base_N;
 			break;

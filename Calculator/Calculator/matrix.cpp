@@ -4,6 +4,7 @@ Matrix::Matrix()
 {
 	rows = 0;
 	cols = 0;
+	pptd = NULL;
 }
 Matrix::Matrix(int row, int col)
 {
@@ -15,7 +16,9 @@ Matrix::Matrix(int row, int col)
 }
 Matrix::~Matrix()
 {
-
+	for (int i = 0; i < rows; i++)
+		delete[] pptd[i];
+	delete[] pptd;
 }
 void Matrix::DefineMatrix(void)
 {
@@ -39,7 +42,13 @@ void Matrix::Calculate(string mode)
 	}
 	else if (mode == "TRANSPOSE")
 	{
-
+		for (int r = 0; r < rows; r++)
+		{
+			for (int c = 0; c < cols; c++)
+			{
+				cin >> pptd[c][r];	//change rows and cols
+			}
+		}
 	}
 	else if (mode == "MATRIXPRODUCT")
 	{
