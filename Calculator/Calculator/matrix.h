@@ -8,7 +8,7 @@ private:
 	double** pptd;		//pointer to pointer to double type -- to allocate 2d array dynamically
 public:
 	Matrix();
-	Matrix(int rows, int cols);
+	Matrix(int row, int col);
 	Matrix(const Matrix&);
 	~Matrix();
 	void DefineMatrix(void);

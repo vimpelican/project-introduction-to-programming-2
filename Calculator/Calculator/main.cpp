@@ -48,16 +48,30 @@ int main(void)
 			switch (UTL->SelectMode("MATRIX"))
 			{
 			case DEFINEMATRIX:
+				UTL->RefreshConsole();
 				UTL->SetPos(5, 1);
 				UTL->PrintGuide("DEFINEMATRIX");
-				if (UTL->InstantReadKey() == A)
+				UTL->SetPos(5, 9);
+				UTL->PrintModes("DEFINEMATRIX");
+				if (UTL->SelectMode("DEFINEMATRIX") == A)
 				{
+					int r_temp, c_temp;
 					UTL->RefreshConsole();
-					UTL->WaitforSec(2);
+					UTL->SetPos(5, 1);
+					UTL->PrintGuide("DEFINEMATRIX_A");
+					UTL->SetPos(33, 7);
+					cin >> r_temp;
+					UTL->SetPos(33, 9);
+					cin >> c_temp;
+					UTL->SetPos(5, 15);
+					Matrix_A = new Matrix(r_temp, c_temp);
+					Matrix_A->DefineMatrix();
 				}
 				else if (UTL->InstantReadKey() == B)
 				{
-
+					UTL->RefreshConsole();
+					UTL->SetPos(5, 1);
+					UTL->PrintGuide("DEFINEMATRIX_B");
 				}
 				break;
 			case CALCULATEMATRIX:
@@ -67,6 +81,7 @@ int main(void)
 			}
 			break;
 		case BASE_N:
+			BN = new Base_N;
 			break;
 		case QUIT:
 			UTL->ExitCalc();

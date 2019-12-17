@@ -103,6 +103,20 @@ void Utility::PrintGuide(string setting)
 	else if (setting == "DEFINEMATRIX")
 	{
 		PrintConsole("행렬 정의 안내 : A, B 중 정의할 행렬을 키보드로 입력해 주세요.");
+	}
+	else if (setting == "DEFINEMATRIX_A")
+	{
+		PrintConsole("행렬 A를 정의합니다.");
+		SetPos(5, 7);
+		PrintConsole("행 수를 선택하세요.(1~3) : ");
+		SetPos(5, 9);
+		PrintConsole("열 수를 선택하세요.(1~3) : ");
+		SetPos(5, 11);
+		PrintConsole("각 성분들을 행/렬 순으로 입력하세요. 비워둘 수 없습니다.");
+	}
+	else if (setting == "DEFINEMATRIX_B")
+	{
+		PrintConsole("행렬 B를 정의합니다.");
 		SetPos(5, 7);
 		PrintConsole("행 수를 선택하세요.(1~3)");
 		SetPos(5, 9);
@@ -131,7 +145,6 @@ void Utility::PrintModes(string setting)
 	}
 	else if (setting == "MATRIX")
 	{
-		SetPos(xPos, yPos);
 		PrintConsole("1. Define Matrix (행렬 정의)");
 		SetPos(xPos, yPos + 4);
 		PrintConsole("2. Edit Matrix (행렬 수정)");
@@ -139,7 +152,14 @@ void Utility::PrintModes(string setting)
 		PrintConsole("3. Calculate Matrix (행렬 연산)");
 		SetPos(xPos, yPos - 8);
 	}
-	else if (setting == "MATRIX_CALCULATION")
+	else if (setting == "DEFINEMATRIX")
+	{
+		PrintConsole("1. A");
+		SetPos(xPos, yPos + 4);
+		PrintConsole("2. B");
+		SetPos(xPos, yPos - 4);
+	}
+	else if (setting == "CALCULATEMATRIX")
 	{
 		SetPos(xPos, yPos);
 		PrintConsole("1. 행렬 덧셈");
@@ -246,7 +266,48 @@ int Utility::SelectMode(string setting)
 			}
 		}
 	}
-	else if (setting == "MATRIX_CALCULATION")
+	else if (setting == "DEFINEMATRIX")
+	{
+		int y_bottom = yPos;
+		int y_top = yPos + 4;
+		while (1)
+		{
+			int n = InstantReadKey();
+			switch (n) {
+			case KEY_UP:
+			{
+				if (y_temp > y_bottom)
+				{
+					MoveCursor(x_temp - 3, y_temp);
+					cout << " ";
+					MoveCursor(x_temp - 3, y_temp -= 4);
+					cout << ">";
+				}
+			}
+			break;
+			case KEY_DOWN:
+			{
+				if (y_temp < y_top)
+				{
+					MoveCursor(x_temp - 3, y_temp);
+					cout << " ";
+					MoveCursor(x_temp - 3, y_temp += 4);
+					cout << ">";
+				}
+			}
+			break;
+			case SUBMIT:
+			{
+				if (y_temp == yPos)
+					return A;
+				else if (y_temp == yPos + 4)
+					return B;
+			}
+			break;
+			}
+		}
+	}
+	else if (setting == "CALCULATEMATRIX")
 	{
 
 		int y_bottom = yPos;
