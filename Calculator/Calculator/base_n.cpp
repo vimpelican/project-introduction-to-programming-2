@@ -1,9 +1,5 @@
 #include "base_n.h"
 
-//void Base_N::ChangeDecimal(int binary)
-//{
-//
-//}
 
 void ChangeDecimal(int binary)  // 2진수를 10진수로 바꿔주는 함수
 {
