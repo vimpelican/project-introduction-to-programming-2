@@ -18,11 +18,6 @@ public:
 		return decimal;
 	}
 
-	
-<<<<<<< HEAD
-	
-=======
->>>>>>> c293b0f732f4fddec579a8ee1cf0a96a92ea636a
 
 };
 

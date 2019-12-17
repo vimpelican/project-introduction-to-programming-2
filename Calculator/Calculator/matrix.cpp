@@ -43,7 +43,7 @@ void Matrix::Calculate(string mode)
 			for (int c = 0; c < cols; c++)
 			{
 				MoveCursor(8+r, 8+c);
-				cout << (scala) * (pptd[r][c]);
+				cout << (scarlar) * (pptd[r][c]);
 			}
 			cout << endl;
 		}
