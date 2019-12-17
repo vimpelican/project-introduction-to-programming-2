@@ -3,7 +3,10 @@
 class Base_N : public Calculator
 {
 private:
-
+	int sum = 0;
+	int temp = 1;
+	int binary;
+	int decimal;
 public:
 	void ChangeDecimal(int binary) {} //識情
 	void ChangeBinary(int decimal) {} // 識情
