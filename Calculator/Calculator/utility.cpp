@@ -75,10 +75,17 @@ void Utility::PrintConsole(char ch)
 {
 	cout << ch;
 }
-void Utility::PrintGuide(void)
+void Utility::PrintGuide(string setting)
 {
-	//not using virtual in here! "virtual" void Utility::PrintGuide(void)
-	PrintConsole("안내 : 방향키로 위/아래를 이동하고, 엔터 키로 선택하세요.");
+	if (setting == "BASIC")
+	{
+		//not using virtual in here! "virtual" void Utility::PrintGuide(void)
+		PrintConsole("안내 : 방향키로 위/아래를 이동하고, 엔터 키로 선택하세요.");
+	}
+	else if (setting == "ARITHMETIC")
+	{
+		PrintConsole("안내 : 중위 입력 형태의 식을 입력하세요.");
+	}
 }
 void Utility::PrintModes(string setting)
 {

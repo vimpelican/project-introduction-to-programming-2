@@ -19,7 +19,7 @@ int main(void)
 	{
 		UTL->RefreshConsole();
 		UTL->SetPos(5, 1);
-		UTL->PrintGuide();
+		UTL->PrintGuide("BASIC");
 		UTL->SetPos(5, 5);
 		UTL->PrintModes("BASIC");
 		switch (UTL->SelectMode("BASIC"))
@@ -27,6 +27,8 @@ int main(void)
 		case ARITHMETIC:
 			UTL->RefreshConsole();
 			ARI = new Arithmetic();
+			UTL->SetPos(10, 10);
+			UTL->PrintGuide("ARITHMETIC");
 			ARI->SetInfixExpression();
 			ARI->ConvertExpression();
 			ARI->Calculate();

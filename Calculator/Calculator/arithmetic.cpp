@@ -1,5 +1,9 @@
 #include "arithmetic.h"
 
+Arithmetic::Arithmetic()
+{
+	result = NULL;
+}
 void Arithmetic::SetInfixExpression(void)
 {
 	cin >> InfixExpression;
@@ -82,6 +86,8 @@ void Arithmetic::ConvertExpression(void)
 		delete ptrs;
 	}
 	*/
+
+
 }
 void Arithmetic::Calculate(void)
 {
@@ -131,4 +137,16 @@ void Arithmetic::Calculate(void)
 	}
 	result = stack.back();
 	*/
+
+}
+int Arithmetic::OperatorPriority(char _operator)
+{
+	if (_operator == ')')
+		return 4;
+	else if (_operator == '*' || _operator == '/')
+		return 3;
+	else if (_operator == '+' || _operator == '-')
+		return 2;
+	else
+		return 1;
 }
