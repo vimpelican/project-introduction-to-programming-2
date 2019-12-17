@@ -48,3 +48,7 @@ Matrix Matrix::operator+(Matrix& other)
 {
 
 }
+Matrix Matrix::operator*(Matrix& other)
+{
+
+}

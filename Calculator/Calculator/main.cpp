@@ -24,8 +24,8 @@ int main(void)
 		UTL->PrintModes("BASIC");
 		switch (UTL->SelectMode("BASIC"))
 		{
-			UTL->RefreshConsole();
 		case ARITHMETIC:
+			UTL->RefreshConsole();
 			ARI = new Arithmetic();
 			UTL->SetPos(5, 1);
 			UTL->PrintGuide("ARITHMETIC");

@@ -222,8 +222,6 @@ int Utility::SelectMode(string setting)
 				if (y_temp == 6)
 					return DEFINEMATRIX;
 				else if (y_temp == 8)
-					return EDITMATRIX;
-				else if (y_temp == 10)
 					return CALCULATEMATRIX;
 			}
 			break;
