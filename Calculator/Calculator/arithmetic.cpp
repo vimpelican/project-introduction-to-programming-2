@@ -6,6 +6,7 @@ void Arithmetic::SetInfixExpression(void)
 }
 void Arithmetic::ConvertExpression(void)
 {
+	/*
 	string* ptrs = new string;
 	*ptrs = InfixExpression;
 	string InfixExp = *ptrs;
@@ -80,10 +81,11 @@ void Arithmetic::ConvertExpression(void)
 		PostfixExpression = *ptrs;
 		delete ptrs;
 	}
+	*/
 }
 void Arithmetic::Calculate(void)
 {
-	string* ptrs = new string;
+	/*string* ptrs = new string;
 	*ptrs = PostfixExpression;
 	string PostfixExp;
 	PostfixExp = *ptrs;
@@ -128,4 +130,5 @@ void Arithmetic::Calculate(void)
 		}
 	}
 	result = stack.back();
+	*/
 }
