@@ -19,7 +19,7 @@ public:
 	void PrintConsole(string contents);
 	void PrintConsole(double value);
 	void PrintConsole(char ch);
-	virtual void PrintGuide(void);	//basic guide : explain program
+	virtual void PrintGuide(string setting);	//basic guide : explain program
 	virtual void PrintModes(string setting);	//basic mode : calculation || matrix || Base_N
 	virtual int SelectMode(string setting);
 };

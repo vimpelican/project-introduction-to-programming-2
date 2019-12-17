@@ -1,5 +1,9 @@
 #include "arithmetic.h"
 
+Arithmetic::Arithmetic()
+{
+	result = NULL;
+}
 void Arithmetic::SetInfixExpression(void)
 {
 	cin >> InfixExpression;
@@ -82,6 +86,38 @@ void Arithmetic::ConvertExpression(void)
 		delete ptrs;
 	}
 	*/
+
+	string::iterator itr_in = InfixExpression.begin();
+	string::iterator itr_po = PostfixExpression.begin();
+	int i;
+	for (; itr_in != InfixExpression.end() && !InfixExpression.size(); ++itr_in)
+	{
+		//when input value is not an operator
+		if (operators.find(*itr_in) == string::npos)
+		{
+			stack_value.push(*itr_in);
+			stack_value.push(' ');	//to distinguish between values, insert whitespace
+		}
+
+		//when input value is an operator
+		if (*itr_in == '(')
+		{
+			while (*itr_in == ')')
+			{
+				stack_operator.push(*itr_in++);
+				stack_operator.push(' ');	//to distinguish between operators, insert whitespace
+			}
+		}
+		else if(stack_operator.size() && OperatorPriority(*itr_in) >= OperatorPriority(--*itr_in))
+		{
+			stack_operator.push(*itr_in);
+			stack_operator.push(' ');
+		}
+		else
+		{
+
+		}
+	}
 }
 void Arithmetic::Calculate(void)
 {
@@ -131,4 +167,16 @@ void Arithmetic::Calculate(void)
 	}
 	result = stack.back();
 	*/
+
+}
+int Arithmetic::OperatorPriority(char _operator)
+{
+	if (_operator == ')')
+		return 4;
+	else if (_operator == '*' || _operator == '/')
+		return 3;
+	else if (_operator == '+' || _operator == '-')
+		return 2;
+	else //operator (
+		return 1;
 }
