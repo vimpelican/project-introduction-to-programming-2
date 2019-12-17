@@ -111,7 +111,7 @@ int main(void)
 						UTL->PrintConsole("스칼라 값을 입력해 주세요.");
 						int scarlar;
 						cin >> scarlar;
-						Matrix_A->setScala(scarlar);
+						Matrix_A->setScarlar(scarlar);
 						UTL->SetPos(8, 8);
 						Matrix_A->Calculate("SCALARPRODUCT");
 						UTL->WaitforSec(3);
