@@ -84,7 +84,19 @@ void Utility::PrintGuide(string setting)
 	}
 	else if (setting == "ARITHMETIC")
 	{
-		PrintConsole("안내 : 중위 입력 형태의 식을 입력하세요.");
+		PrintConsole("사칙연산 안내 : 중위 입력 형태의 식을 입력하세요.");
+	}
+	else if (setting == "MATRIX")
+	{
+		PrintConsole("안내 : 방향키로 위/아래를 이동하고, 엔터 키로 선택하세요.");
+	}
+	else if (setting == "DEFINEMATRIX")
+	{
+		PrintConsole("안내 : A, B 중 정의할 행렬을 키보드로 입력해 주세요.");
+	}
+	else if (setting == "CALCULATEMATRIX")
+	{
+		PrintConsole("행렬 계산 안내 : 방향키로 위/아래를 이동하고, 엔터 키로 선택하세요.");
 	}
 }
 void Utility::PrintModes(string setting)
