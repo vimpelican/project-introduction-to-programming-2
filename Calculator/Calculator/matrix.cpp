@@ -1,10 +1,24 @@
 #include "matrix.h"
 
+Matrix::Matrix()
+{
+	rows = cols = NULL;
+	pptd = NULL;
+}
 Matrix::Matrix(int r, int c)
 {
 	rows = r;
 	cols = c;
-	pptd = NULL;	//to check whether matrix is exists or not
+
+	for (int i = 0; i < cols; i++)
+	{
+		pptd[i] = new double[rows];
+		memset(pptd[i], 0, sizeof(double)*(cols));	//initialize memory space to 0
+	}
+}
+Matrix::~Matrix()
+{
+
 }
 void Matrix::DefineMatrix(void)
 {
@@ -18,11 +32,6 @@ void Matrix::DefineMatrix(void)
 }
 void Matrix::Calculate(string mode)
 {
-	if (pptd == NULL)
-		isDefined = false;
-	else
-		isDefined = true;
-
 	if (mode == "ADDMATRIX")
 	{
 
@@ -44,11 +53,30 @@ void Matrix::Calculate(string mode)
 
 	}
 }
+
+/*
 Matrix Matrix::operator+(Matrix& other)
 {
-
+	Matrix
+	double** pptd_temp;
+	for (int r = 0; r < rows; r++)
+	{
+		for (int c = 0; c < cols; c++)
+		{
+			pptd_temp[r][c] = pptd[r][c] + (other.GetPointer)[r][c];	//add each element
+		}
+	}
+	return pptd_temp;
 }
 Matrix Matrix::operator*(Matrix& other)
 {
-
+	double** pptd_temp;
+	for (int r = 0; r < rows; r++)
+	{
+		for (int c = 0; c < cols; c++)
+		{
+			pptd_temp[r][c] = pptd[r][c] * (other.GetPointer)[r][c];	//multiple each element
+		}
+	}
 }
+*/

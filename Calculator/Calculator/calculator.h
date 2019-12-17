@@ -21,7 +21,7 @@
 #define RETURN 100		//return value to return to mode select screen
 
 #define DEFINEMATRIX 1000
-//#define EDITMATRIX 1001
+#define EDITMATRIX 1001	//not implemented
 #define CALCULATEMATRIX 1002
 
 #include <iostream>

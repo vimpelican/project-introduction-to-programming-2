@@ -20,33 +20,45 @@ int main(void)
 		UTL->RefreshConsole();
 		UTL->SetPos(5, 1);
 		UTL->PrintGuide("BASIC");
-		UTL->SetPos(5, 5);
+		UTL->SetPos(5, 9);
 		UTL->PrintModes("BASIC");
 		switch (UTL->SelectMode("BASIC"))
 		{
+			UTL->SetPos(5, 5);
+			UTL->PrintModes("BASIC");
 		case ARITHMETIC:
 			UTL->RefreshConsole();
 			ARI = new Arithmetic();
-			UTL->SetPos(5, 1);
+			UTL->SetPos(6, 1);
 			UTL->PrintGuide("ARITHMETIC");
+			UTL->SetPos(17, 16);
 			ARI->SetInfixExpression();
 			ARI->ConvertExpression();
 			ARI->Calculate();
-			UTL->RefreshConsole();
-			UTL->SetPos(12, 10);
+			UTL->SetPos(17, 20);
 			UTL->PrintConsole(ARI->GetResult());
 			UTL->WaitforSec(3);
 			break;
 		case MATRIX:
+			UTL->RefreshConsole();
 			UTL->SetPos(5, 1);
 			UTL->PrintGuide("MATRIX");
-			UTL->SetPos(5, 5);
+			UTL->SetPos(5, 9);
 			UTL->PrintModes("MATRIX");
 			switch (UTL->SelectMode("MATRIX"))
 			{
 			case DEFINEMATRIX:
 				UTL->SetPos(5, 1);
 				UTL->PrintGuide("DEFINEMATRIX");
+				if (UTL->InstantReadKey() == A)
+				{
+					UTL->RefreshConsole();
+					UTL->WaitforSec(2);
+				}
+				else if (UTL->InstantReadKey() == B)
+				{
+
+				}
 				break;
 			case CALCULATEMATRIX:
 				UTL->SetPos(5, 1);

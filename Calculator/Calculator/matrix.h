@@ -6,15 +6,17 @@ private:
 	int rows;
 	int cols;
 	double** pptd;		//pointer to pointer to double type -- to allocate 2d array dynamically
-	bool isDefined;		//flag to check whether calculation is possible
 public:
+	Matrix();
 	Matrix(int rows, int cols);
+	Matrix(const Matrix&);
+	~Matrix();
 	void DefineMatrix(void);
 	//void EditMatrix(void);
 	void Calculate(string mode);
 	double** GetPointer(void) { return pptd; };
-	Matrix operator+(Matrix& other);
-	Matrix operator*(Matrix& other);
+	//Matrix operator+(Matrix& other);
+	//Matrix operator*(Matrix& other);
 };
 /*ptc_m->PrintGuide(18, 2);
 ptc_m->PrintModes();

@@ -80,19 +80,35 @@ void Utility::PrintGuide(string setting)
 	if (setting == "BASIC")
 	{
 		//not using virtual in here! "virtual" void Utility::PrintGuide(void)
-		PrintConsole("안내 : 방향키로 위/아래를 이동하고, 엔터 키로 선택하세요.");
+		PrintConsole("기본 안내 : 방향키로 위/아래를 이동하고, 엔터 키로 선택하세요.");
 	}
 	else if (setting == "ARITHMETIC")
 	{
 		PrintConsole("사칙연산 안내 : 중위 입력 형태의 식을 입력하세요.");
+		SetPos(5, 7);
+		PrintConsole("* 입력 예시 : 5-2*(3-1)+4");
+		SetPos(5, 9);
+		PrintConsole("* 연산자 생략은 불가하고 괄호는 맨 앞에 사용할 수 없습니다.");
+		SetPos(5, 11);
+		PrintConsole("* 한 자리 숫자만 입력 가능합니다.");
+		SetPos(5, 16);
+		PrintConsole("입력한 식 : ");
+		SetPos(10, 20);
+		PrintConsole("정답 : ");
 	}
 	else if (setting == "MATRIX")
 	{
-		PrintConsole("안내 : 방향키로 위/아래를 이동하고, 엔터 키로 선택하세요.");
+		PrintConsole("행렬 기본 안내 : 방향키로 이동하고, 엔터 키로 선택하세요.");
 	}
 	else if (setting == "DEFINEMATRIX")
 	{
-		PrintConsole("안내 : A, B 중 정의할 행렬을 키보드로 입력해 주세요.");
+		PrintConsole("행렬 정의 안내 : A, B 중 정의할 행렬을 키보드로 입력해 주세요.");
+		SetPos(5, 7);
+		PrintConsole("행 수를 선택하세요.(1~3)");
+		SetPos(5, 9);
+		PrintConsole("열 수를 선택하세요.(1~3)");
+		SetPos(5, 11);
+		PrintConsole("각 성분들을 행/렬 순으로 입력하세요. 비워둘 수 없습니다.");
 	}
 	else if (setting == "CALCULATEMATRIX")
 	{
@@ -104,24 +120,24 @@ void Utility::PrintModes(string setting)
 	if (setting == "BASIC")
 	{
 		SetPos(xPos, yPos);
-		PrintConsole("1. 기본 계산(수식 입력)");
-		SetPos(xPos, yPos + 3);
+		PrintConsole("1. Arithmetic (기본 사칙 연산)");
+		SetPos(xPos, yPos + 4);
 		PrintConsole("2. Matrix (행렬 계산)");
-		SetPos(xPos, yPos + 3);
+		SetPos(xPos, yPos + 4);
 		PrintConsole("3. Base-N (진수 변환)");
-		SetPos(xPos, yPos + 3);
+		SetPos(xPos, yPos + 4);
 		PrintConsole("4. Quit (프로그램 종료)");
-		SetPos(xPos, yPos - 9);	//subtract increased value -- to get initial yPos
+		SetPos(xPos, yPos - 12);	//subtract increased value -- to get initial yPos
 	}
 	else if (setting == "MATRIX")
 	{
 		SetPos(xPos, yPos);
-		PrintConsole("1. 행렬 정의");
-		SetPos(xPos, yPos + 3);
-		PrintConsole("2. 행렬 수정");
-		SetPos(xPos, yPos + 3);
-		PrintConsole("3. 행렬 연산");
-		SetPos(xPos, yPos - 6);
+		PrintConsole("1. Define Matrix (행렬 정의)");
+		SetPos(xPos, yPos + 4);
+		PrintConsole("2. Edit Matrix (행렬 수정)");
+		SetPos(xPos, yPos + 4);
+		PrintConsole("3. Calculate Matrix (행렬 연산)");
+		SetPos(xPos, yPos - 8);
 	}
 	else if (setting == "MATRIX_CALCULATION")
 	{
@@ -145,7 +161,7 @@ int Utility::SelectMode(string setting)
 	if (setting == "BASIC")
 	{
 		int y_bottom = yPos;
-		int y_top = yPos + 9;
+		int y_top = yPos + 12;
 		while (1)
 		{
 			int n = InstantReadKey();
@@ -156,7 +172,7 @@ int Utility::SelectMode(string setting)
 				{
 					MoveCursor(x_temp - 3, y_temp);
 					cout << " ";
-					MoveCursor(x_temp - 3, y_temp -= 3);
+					MoveCursor(x_temp - 3, y_temp -= 4);
 					cout << ">";
 				}
 			}
@@ -167,7 +183,7 @@ int Utility::SelectMode(string setting)
 				{
 					MoveCursor(x_temp - 3, y_temp);
 					cout << " ";
-					MoveCursor(x_temp - 3, y_temp += 3);
+					MoveCursor(x_temp - 3, y_temp += 4);
 					cout << ">";
 				}
 			}
@@ -176,11 +192,11 @@ int Utility::SelectMode(string setting)
 			{
 				if (y_temp == yPos)
 					return ARITHMETIC;
-				else if (y_temp == yPos + 3)
+				else if (y_temp == yPos + 4)
 					return MATRIX;
-				else if (y_temp == yPos + 6)
+				else if (y_temp == yPos + 8)
 					return BASE_N;
-				else if (y_temp == yPos + 9)
+				else if (y_temp == yPos + 12)
 					return QUIT;
 			}
 			break;
@@ -190,7 +206,7 @@ int Utility::SelectMode(string setting)
 	else if (setting == "MATRIX")
 	{
 		int y_bottom = yPos;
-		int y_top = yPos + 4;
+		int y_top = yPos + 8;
 		while (1)
 		{
 			int n = InstantReadKey();
@@ -201,7 +217,7 @@ int Utility::SelectMode(string setting)
 				{
 					MoveCursor(x_temp - 3, y_temp);
 					cout << " ";
-					MoveCursor(x_temp - 3, y_temp -= 2);
+					MoveCursor(x_temp - 3, y_temp -= 4);
 					cout << ">";
 				}
 			}
@@ -212,16 +228,18 @@ int Utility::SelectMode(string setting)
 				{
 					MoveCursor(x_temp - 3, y_temp);
 					cout << " ";
-					MoveCursor(x_temp - 3, y_temp += 2);
+					MoveCursor(x_temp - 3, y_temp += 4);
 					cout << ">";
 				}
 			}
 			break;
 			case SUBMIT:
 			{
-				if (y_temp == 6)
+				if (y_temp == yPos)
 					return DEFINEMATRIX;
-				else if (y_temp == 8)
+				else if (y_temp == yPos + 4)
+					return EDITMATRIX;
+				else if (y_temp == yPos + 8);
 					return CALCULATEMATRIX;
 			}
 			break;
