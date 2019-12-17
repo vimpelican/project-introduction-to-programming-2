@@ -33,6 +33,7 @@
 #include <string>		//to use C++ style string
 #include <vector>		//to use std::vector
 #include <stack>		//to use std::stack(not sure)
+#include <queue>
 #include <utility>		//to use pair<int, int>
 #include <sstream>		//to use stringstream;
 
@@ -44,6 +45,7 @@ using std::string;
 using std::pair;
 using std::vector;
 using std::stack;
+using std::queue;
 using std::stringstream;
 
 class Calculator

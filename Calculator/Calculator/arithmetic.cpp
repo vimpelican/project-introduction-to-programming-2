@@ -2,7 +2,11 @@
 
 Arithmetic::Arithmetic()
 {
-	result = NULL;
+	result = 0.0;
+}
+Arithmetic::Arithmetic(string infix)
+{
+	InfixExpression = infix;
 }
 void Arithmetic::SetInfixExpression(void)
 {
@@ -10,7 +14,6 @@ void Arithmetic::SetInfixExpression(void)
 }
 void Arithmetic::ConvertExpression(void)
 {
-	/*
 	string* ptrs = new string;
 	*ptrs = InfixExpression;
 	string InfixExp = *ptrs;
@@ -70,27 +73,26 @@ void Arithmetic::ConvertExpression(void)
 			break;
 		default:
 			//unknown error
-			Post_temp += " ";
+			cout << "예상치 못한 에러가 발생했습니다. 프로그램을 종료합니다." << endl;
 		}
-
-		size_t stacksize = stack.size();
-		for (size_t i = 0; i < stacksize; ++i)
-		{
-			Post_temp += " ";
-			Post_temp += stack.back();
-			stack.pop_back();
-		}
-
-		*ptrs = Post_temp;
-		PostfixExpression = *ptrs;
-		delete ptrs;
+		Post_temp += " ";
 	}
-	*/
 
+	size_t stacksize = stack.size();
+	for (size_t i = 0; i < stacksize; ++i)
+	{
+		Post_temp += " ";
+		Post_temp += stack.back();
+		stack.pop_back();
+	}
+
+	*ptrs = Post_temp;
+	PostfixExpression = *ptrs;
+	delete ptrs;
+	/*
 	string::iterator itr_in = InfixExpression.begin();
 	string::iterator itr_po = PostfixExpression.begin();
-	int i;
-	for (; itr_in != InfixExpression.end() && !InfixExpression.size(); ++itr_in)
+	for (; itr_in != InfixExpression.end(); itr_in++)
 	{
 		//when input value is not an operator
 		if (operators.find(*itr_in) == string::npos)
@@ -104,24 +106,45 @@ void Arithmetic::ConvertExpression(void)
 		{
 			while (*itr_in == ')')
 			{
-				stack_operator.push(*itr_in++);
-				stack_operator.push(' ');	//to distinguish between operators, insert whitespace
+				stack_operator.push(*itr_in);
+				stack_operator.push(' ');		//to distinguish between operators, insert whitespace
 			}
-		}
-		else if(stack_operator.size() && OperatorPriority(*itr_in) >= OperatorPriority(--*itr_in))
-		{
-			stack_operator.push(*itr_in);
-			stack_operator.push(' ');
 		}
 		else
 		{
+			if (stack_operator.empty())
+			{
+				stack_operator.push(*itr_in);
+				stack_operator.push(' ');
+			}
+			else
+			{
+				while (!stack_operator.empty() && OperatorPriority(stack_operator.top()) >= OperatorPriority(stack_temp.back()))
+				{
+					stack_temp.push(*itr_in);
+					stack_temp.push(' ');
+				}
+			}
+		}
 
+		while (!stack_operator.empty())
+		{
+			stack_temp.push(*itr_in);
+			stack_temp.push(' ');
+			stack_operator.pop();
 		}
 	}
+
+	for (size_t i = 0; i < stack_temp.size(); i++)
+	{
+		PostfixExpression[i] = stack_temp.front();
+		stack_temp.pop();
+	}
+	*/
 }
 void Arithmetic::Calculate(void)
 {
-	/*string* ptrs = new string;
+	string* ptrs = new string;
 	*ptrs = PostfixExpression;
 	string PostfixExp;
 	PostfixExp = *ptrs;
@@ -166,10 +189,8 @@ void Arithmetic::Calculate(void)
 		}
 	}
 	result = stack.back();
-	*/
-
 }
-int Arithmetic::OperatorPriority(char _operator)
+/*int Arithmetic::OperatorPriority(char _operator)
 {
 	if (_operator == ')')
 		return 4;
@@ -179,4 +200,4 @@ int Arithmetic::OperatorPriority(char _operator)
 		return 2;
 	else //operator (
 		return 1;
-}
+}*/

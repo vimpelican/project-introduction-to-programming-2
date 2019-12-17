@@ -32,15 +32,16 @@ int main(void)
 			ARI->SetInfixExpression();
 			ARI->ConvertExpression();
 			ARI->Calculate();
-			UTL->SetPos(10, 10);
+			UTL->RefreshConsole();
+			UTL->SetPos(12, 10);
 			UTL->PrintConsole(ARI->GetResult());
 			UTL->WaitforSec(1.5);
 			break;
 		case MATRIX:
 			/*ptc_m->PrintGuide(18, 2);
 			ptc_m->PrintModes();
-			if (ptc_m->SelectMode() == DEFINEMATRIX)
-{
+			if (ptc_m->SelectMode() == DEFINEMATRIX
+			{
 	ptc_m->PrintAt(5, 5, "A, B 중 정의할 행렬을 키보드로 입력해 주세요.");
 	if (ptc_m->ReadKey() == A)
 	{
